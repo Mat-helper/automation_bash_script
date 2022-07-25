@@ -36,13 +36,13 @@ sudo mkdir -p /var/www/sslkeys
 touch /var/www/sslkeys/${DOMAIN_NAME}.csr /var/www/sslkeys/${DOMAIN_NAME}.key /var/www/sslkeys/${DOMAIN_NAME}.ca-bundle
 
 #comment the default ssl file path line at default-ssl.conf
-sudo sed -i -e '32 s/SSLCertificateFile/#SSLCertificateFile/g' /etc/apache2/sites-available/default-ssl.conf
-sudo sed -i -e '33 s/SSLCertificateKeyFile/#SSLCertificateKeyFile/g' /etc/apache2/sites-available/default-ssl.conf
+sudo sed -i -e '33 s/SSLCertificateFile/#SSLCertificateFile/g' /etc/apache2/sites-available/default-ssl.conf
+sudo sed -i -e '34 s/SSLCertificateKeyFile/#SSLCertificateKeyFile/g' /etc/apache2/sites-available/default-ssl.conf
 
 #insert the ssl certificate , private key , ca-bundle 
-sudo sed -i "34 i SSLCertificateFile /var/www/sslkeys/${CERT_FILE}.csr" /etc/apache2/sites-available/default-ssl.conf
-sudo sed -i "35 i SSLCertificateKeyFile /var/www/sslkeys/${CERT_FILE}.key" /etc/apache2/sites-available/default-ssl.conf
-sudo sed -i "36 i SSLCertificateChainFile /var/www/sslkeys/${CERT_FILE}.ca-bundle" /etc/apache2/sites-available/default-ssl.conf
+sudo sed -i "35 i SSLCertificateFile /var/www/sslkeys/${CERT_FILE}.csr" /etc/apache2/sites-available/default-ssl.conf
+sudo sed -i "36 i SSLCertificateKeyFile /var/www/sslkeys/${CERT_FILE}.key" /etc/apache2/sites-available/default-ssl.conf
+sudo sed -i "37 i SSLCertificateChainFile /var/www/sslkeys/${CERT_FILE}.ca-bundle" /etc/apache2/sites-available/default-ssl.conf
 
 #servername & server alias name 
 sudo sed -i "2 i ServerName ${DOMAIN_NAME}" /etc/apache2/sites-available/000-default.conf
