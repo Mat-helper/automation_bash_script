@@ -33,7 +33,7 @@ sudo sed -i "4 i Redirect permanent / https://${DOMAIN_NAME}/" /etc/apache2/site
 #ssl file create at location /var/www/sslkeys
 sudo mkdir -p /var/www/sslkeys
 
-touch /var/www/sslkeys/${DOMAIN_NAME}.csr /var/www/sslkeys/${DOMAIN_NAME}.key /var/www/sslkeys/${DOMAIN_NAME}.ca-bundle
+touch /var/www/sslkeys/${CERT_FILE}.csr /var/www/sslkeys/${CERT_FILE}.key /var/www/sslkeys/${CERT_FILE}.ca-bundle
 
 #comment the default ssl file path line at default-ssl.conf
 sudo sed -i -e '33 s/SSLCertificateFile/#SSLCertificateFile/g' /etc/apache2/sites-available/default-ssl.conf
