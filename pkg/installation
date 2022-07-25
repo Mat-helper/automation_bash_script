@@ -11,7 +11,7 @@ sudo apt-get upgrade -y
 #Basic required package
 sudo apt-get install zip unzip -y
 sudo apt-get install curl -y
-sudo apt-get install software-properties-common
+sudo apt-get install software-properties-common -y
 
 # install the mongo package
 wget -qO - https://www.mongodb.org/static/pgp/server-4.0.asc | sudo apt-key add -
