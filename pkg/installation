@@ -6,7 +6,7 @@
 
 #update the repository
 sudo apt-get update
-sudo apt-get upgrade
+sudo apt-get upgrade -y
 
 #Basic required package
 sudo apt-get install zip unzip -y
