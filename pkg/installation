@@ -20,3 +20,6 @@ sudo apt-get update
 sudo apt install mongodb-org -y
 sudo systemctl start mongod
 sudo systemctl enable mongod
+
+#install apache2 server configuration 
+sudo apt-get install apache2 -y
