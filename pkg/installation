@@ -5,21 +5,21 @@
 ################################
 
 #update the repository
-sudo apt-get update
-sudo apt-get upgrade -y
+sudo apt-get update >> ${PKG_INSTALL_LOG} 2>&1
+sudo apt-get upgrade -y >> ${PKG_INSTALL_LOG} 2>&1
 
 #Basic required package
-sudo apt-get install zip unzip -y
-sudo apt-get install curl -y
-sudo apt-get install software-properties-common -y
+sudo apt-get install zip unzip -y >> ${PKG_INSTALL_LOG} 2>&1
+sudo apt-get install curl -y >> ${PKG_INSTALL_LOG} 2>&1
+sudo apt-get install software-properties-common -y >> ${PKG_INSTALL_LOG} 2>&1
 
 # install the mongo package
-wget -qO - https://www.mongodb.org/static/pgp/server-4.0.asc | sudo apt-key add -
-echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.0.list
-sudo apt-get update
-sudo apt install mongodb-org -y
-sudo systemctl start mongod
-sudo systemctl enable mongod
+wget -qO - https://www.mongodb.org/static/pgp/server-4.0.asc | sudo apt-key add - >> ${PKG_INSTALL_LOG} 2>&1
+echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.0.list >> ${PKG_INSTALL_LOG} 2>&1
+sudo apt-get update >> ${PKG_INSTALL_LOG} 2>&1
+sudo apt install mongodb-org -y >> ${PKG_INSTALL_LOG} 2>&1
+sudo systemctl start mongod >> ${PKG_INSTALL_LOG} 2>&1
+sudo systemctl enable mongod >> ${PKG_INSTALL_LOG} 2>&1
 
 #install apache2 server configuration 
-sudo apt-get install apache2 -y
+sudo apt-get install apache2 -y >> ${PKG_INSTALL_LOG} 2>&1

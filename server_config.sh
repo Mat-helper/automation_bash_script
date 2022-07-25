@@ -9,10 +9,28 @@ export CERT_FILE=${DOMAIN_NAME//./_}
 
 #############################################################################
 ################################
-#install the required packages
+#runtime directory creation and name for the log files
 ################################
+tmprootdir="$(dirname $0)"
+echo ${tmprootdir} | grep '^/' >/dev/null 2>&1
+if [ X"$?" == X"0" ]; then
+    export ROOTDIR="${tmprootdir}"
+else
+    export ROOTDIR="$(pwd)"
+fi
 
-. pkg/installation
+cd ${ROOTDIR}
+
+export PKG_DIR="${ROOTDIR}/pkg"
+export RUNTIME_DIR="${ROOTDIR}/runtime"
+
+[[ -d ${RUNTIME_DIR} ]] || mkdir -p ${RUNTIME_DIR}
+
+export STATUS_FILE="${RUNTIME_DIR}/install.status"
+export INSTALL_LOG="${RUNTIME_DIR}/install.log"
+export PKG_INSTALL_LOG="${RUNTIME_DIR}/pkg.install.log"
+
+. ${PKG_DIR}/installation
 ###########################################################################################
 #################################
 #apache server  configuration
