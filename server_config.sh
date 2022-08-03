@@ -43,7 +43,7 @@ sudo sed -i -e '172 s/AllowOverride None/AllowOverride All/g' /etc/apache2/apach
 sudo echo -e "Header set X-Frame-Options: \"sameorigin\"" >> /etc/apache2/conf-available/security.conf
 
 # write the protocol for http2 
-sudo sed -i "4 i Protocols h2 http/1.1" /etc/apache2/sites-available/default-ssl.conf
+sudo sed -i "3 i Protocols h2 http/1.1" /etc/apache2/sites-available/default-ssl.conf
 
 # http to https redirect write at virtual host
 sudo sed -i "4 i Redirect permanent / https://${DOMAIN_NAME}/" /etc/apache2/sites-available/000-default.conf
