@@ -35,6 +35,34 @@ export PKG_INSTALL_LOG="${RUNTIME_DIR}/pkg.install.log"
 . ${PKG_DIR}/installation
 . ${CONFIG_DIR}/apache2
 
+ECHO_INFO()
+{
+    if [ X"$1" == X"-n" ]; then
+        shift 1
+        echo -ne "${_INFO_FLAG} $@"
+    else
+        echo -e "${_INFO_FLAG} $@"
+    fi
+    echo -e "${_INFO_FLAG} $@" >> ${INSTALL_LOG}
+}
+
+backup_file()
+{
+    # Usage: backup_file file1 [file2 file3 ... fileN]
+    if [ X"$#" != X"0" ]; then
+        for f in $@; do
+            if [ -f ${f} ]; then
+                if [ X"${SERVER_DEBUG}" == X'YES' ]; then
+                    echo -e "${_BACKUP_FLAG} ${f} -> ${f}.${DATE}."
+                fi
+                cp -f ${f} ${f}.${DATE}
+            fi
+        done
+    fi
+}
+
+# Debug mode: YES, NO.
+export SERVER_DEBUG="${SERVER_DEBUG:=NO}"
 
 # root user/group name. Note: not all OSes have group 'root'.
 export SYS_USER_ROOT='root'
