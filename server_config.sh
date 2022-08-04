@@ -35,6 +35,19 @@ export PKG_INSTALL_LOG="${RUNTIME_DIR}/pkg.install.log"
 . ${PKG_DIR}/installation
 . ${CONFIG_DIR}/apache2
 
+
+
+# Output flag.
+export _INFO_FLAG="[ INFO ]"
+
+# Debug mode: YES, NO.
+export SERVER_DEBUG="${SERVER_DEBUG:=NO}"
+
+# root user/group name. Note: not all OSes have group 'root'.
+export SYS_USER_ROOT='root'
+export SYS_GROUP_ROOT='root'
+
+
 ECHO_INFO()
 {
     if [ X"$1" == X"-n" ]; then
@@ -60,13 +73,6 @@ backup_file()
         done
     fi
 }
-
-# Debug mode: YES, NO.
-export SERVER_DEBUG="${SERVER_DEBUG:=NO}"
-
-# root user/group name. Note: not all OSes have group 'root'.
-export SYS_USER_ROOT='root'
-export SYS_GROUP_ROOT='root'
 
 # Backup script file names.
 export BACKUP_SCRIPT_MONGO_NAME='backup_mongo.sh'
