@@ -84,7 +84,7 @@ sudo a2ensite default-ssl.conf
 sudo a2enmod http2 headers rewrite ssl proxy proxy_ssl proxy_balancer 
 
 #test the configuration are completed with or without error
-sudo apach2ctl configtest
+sudo apache2ctl configtest
 
 #restart the server 
 sudo systemctl restart apache2
