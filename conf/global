@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+export DATE="$(/bin/date +%Y.%m.%d.%H.%M.%S)"
+
+# Output flag.
+export _INFO_FLAG="[ INFO ]"
+export _SKIP_FLAG="< SKIP >"
+export _ERROR_FLAG="<< ERROR >>"
+export _QUESTION_FLAG="< Question >"
+export _BACKUP_FLAG=" + < Backup >"
+export _DEBUG_FLAG=" + < DEBUG >"
+
+
+# root user/group name. Note: not all OSes have group 'root'.
+export SYS_USER_ROOT='root'
+export SYS_GROUP_ROOT='root'
+
+# Backup script file names.
+export BACKUP_SCRIPT_MONGO_NAME='backup_mongo.sh'
+
+# Cache clear scirpt file names.
+export BUFFER_CACHE_CLEAR='clearcache.sh'
+
+export STATUS_FILE="${RUNTIME_DIR}/install.status"
+export INSTALL_LOG="${RUNTIME_DIR}/install.log"
+export PKG_INSTALL_LOG="${RUNTIME_DIR}/pkg.install.log"
+
+# Shells
+export SHELL_NOLOGIN='/sbin/nologin'
+export SHELL_BASH='/bin/bash'
+
+# Crontab related.
+export CRON_SPOOL_DIR='/var/cron/tabs'
+
+# Root's cron file
+export CRON_FILE_ROOT="${CRON_SPOOL_DIR}/${SYS_USER_ROOT}"

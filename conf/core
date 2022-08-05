@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+
+
+ECHO_INFO()
+{
+    if [ X"$1" == X"-n" ]; then
+        shift 1
+        echo -ne "${_INFO_FLAG} $@"
+    else
+        echo -e "${_INFO_FLAG} $@"
+    fi
+    echo -e "${_INFO_FLAG} $@" >> ${INSTALL_LOG}
+}
+
+ECHO_SKIP()
+{
+    echo -e "${_SKIP_FLAG} $@"
+    echo -e "${_SKIP_FLAG} $@" >> ${INSTALL_LOG}
+}
+
+ECHO_QUESTION()
+{
+    if [ X"$1" == X"-n" ]; then
+        shift 1
+        echo -ne "${_QUESTION_FLAG} $@"
+    else
+        echo -e "${_QUESTION_FLAG} $@"
+    fi
+}
+
+ECHO_ERROR()
+{
+    echo -e "${_ERROR_FLAG} $@"
+    echo -e "${_ERROR_FLAG} $@" >> ${INSTALL_LOG}
+}
+
+ECHO_DEBUG()
+{
+    echo -e "${_DEBUG_FLAG} $@" >> ${INSTALL_LOG}
+}
+
+backup_file()
+{
+    # Usage: backup_file file1 [file2 file3 ... fileN]
+    if [ X"$#" != X"0" ]; then
+        for f in $@; do
+            if [ -f ${f} ]; then
+                if [ X"${SERVER_DEBUG}" == X'YES' ]; then
+                    echo -e "${_BACKUP_FLAG} ${f} -> ${f}.${DATE}."
+                fi
+                cp -f ${f} ${f}.${DATE}
+            fi
+        done
+    fi
+}
