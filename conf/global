@@ -30,7 +30,7 @@ export SHELL_NOLOGIN='/sbin/nologin'
 export SHELL_BASH='/bin/bash'
 
 # Crontab related.
-export CRON_SPOOL_DIR='/var/cron/tabs'
+export CRON_SPOOL_DIR='/var/spool/cron/crontabs'
 
 # Root's cron file
 export CRON_FILE_ROOT="${CRON_SPOOL_DIR}/${SYS_USER_ROOT}"
