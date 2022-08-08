@@ -15,11 +15,11 @@ export DAY="$(${CMD_DATE} +%d)"
 export TIMESTAMP="${YEAR}-${MONTH}-${DAY}-${TIME}"
 
 export DB_BACKUP_PATH='/backup/mongo'
-export MONGO_HOST='13.56.100.141'
-export MONGO_PORT='9080'
-export MONGO_USER='Mverfg'
-export MONGO_PASSWD='Y8kbt478we9'
-export DATABASE_NAMES='matdb'
+#export MONGO_HOST='13.56.100.141'
+#export MONGO_PORT='9080'
+#export MONGO_USER='Mverfg'
+#export MONGO_PASSWD='Y8kbt478we9'
+#export DATABASE_NAMES='matdb'
 
 # Pre-defined backup status
 export BACKUP_SUCCESS='YES'
@@ -42,7 +42,7 @@ if [ X"$?" == X'0' ]; then
  echo "Running backup for selected databases: ${DATABASE_NAMES}" >>${LOGFILE}
    for DB_NAME in ${DATABASE_NAMES}
     do
-    mongodump --host ${MONGO_HOST} --port ${MONGO_PORT} --db ${DB_NAME} --username ${MONGO_USER} --password ${MONGO_PASSWD} --out ${DB_BACKUP_PATH}/${YEAR}/${MONTH}/${DAY}/${TIME}  &>/dev/null
+    mongodump --db ${DB_NAME} --username ${MONGO_USER} --password ${MONGO_PASSWD} --out ${DB_BACKUP_PATH}/${YEAR}/${MONTH}/${DAY}/${TIME}  &>/dev/null
    done
 else
     # backup failed

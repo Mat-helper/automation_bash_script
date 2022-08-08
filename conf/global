@@ -10,6 +10,9 @@ export _QUESTION_FLAG="< Question >"
 export _BACKUP_FLAG=" + < Backup >"
 export _DEBUG_FLAG=" + < DEBUG >"
 
+# Command used to genrate a random string.
+# Usage: str="$(${RANDOM_STRING})"
+RANDOM_STRING='eval </dev/urandom tr -dc A-Za-z | (head -c $1 &>/dev/null || head -c 6)' 
 
 # root user/group name. Note: not all OSes have group 'root'.
 export SYS_USER_ROOT='root'

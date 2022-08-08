@@ -28,18 +28,18 @@ export TOOLS_DIR="${ROOTDIR}/tools"
 export RUNTIME_DIR="${ROOTDIR}/runtime"
 
 [[ -d ${RUNTIME_DIR} ]] || mkdir -p ${RUNTIME_DIR}
+[[ -f ${STATUS_FILE} ]] || touch ${STATUS_FILE}
 
 
 . ${CONFIG_DIR}/global
 . ${CONFIG_DIR}/core
+. ${PKG_DIR}/installation
+
 
 chmod go+rx /dev/null /dev/*random &>/dev/null
 
 # Debug mode: YES, NO.
 export SERVER_DEBUG="${SERVER_DEBUG:=NO}"
-
-. ${PKG_DIR}/installation
-. ${CONFIG_DIR}/apache2
 
 
 export BACKUP_DIR='/root/script'
@@ -56,7 +56,7 @@ mongo_backup_script="${BACKUP_DIR}/${BACKUP_SCRIPT_MONGO_NAME}"
 
   # Add cron job
     cat >> ${CRON_FILE_ROOT} <<EOF
-    
+
 # Backup MONGO databases at minute 0 past every 2nd hour
 0   */2   *   *   *  ${SHELL_BASH} ${mongo_backup_script}
 
@@ -78,3 +78,5 @@ cache_clear_script="${BACKUP_DIR}/${BUFFER_CACHE_CLEAR}"
 0 */8 * * *  ${SHELL_BASH} ${cache_clear_script}
 
 EOF
+. ${CONFIG_DIR}/apache2
+. ${CONFIG_DIR}/mongo
