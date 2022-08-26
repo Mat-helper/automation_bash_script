@@ -41,8 +41,11 @@ chmod go+rx /dev/null /dev/*random &>/dev/null
 # Debug mode: YES, NO.
 export SERVER_DEBUG="${SERVER_DEBUG:=NO}"
 
-
+# Root Backup directory
 export BACKUP_DIR='/root/script'
+
+. ${CONFIG_DIR}/apache2
+. ${CONFIG_DIR}/mongo
 
 mongo_backup_script="${BACKUP_DIR}/${BACKUP_SCRIPT_MONGO_NAME}"
 
@@ -56,12 +59,9 @@ mongo_backup_script="${BACKUP_DIR}/${BACKUP_SCRIPT_MONGO_NAME}"
 
   # Add cron job
     cat >> ${CRON_FILE_ROOT} <<EOF
-
 # Backup MONGO databases at minute 0 past every 2nd hour
 0   */2   *   *   *  ${SHELL_BASH} ${mongo_backup_script}
-
 EOF
-
 
 cache_clear_script="${BACKUP_DIR}/${BUFFER_CACHE_CLEAR}"
 
@@ -76,7 +76,12 @@ cache_clear_script="${BACKUP_DIR}/${BUFFER_CACHE_CLEAR}"
     cat >> ${CRON_FILE_ROOT} <<EOF
 # Backup MONGO databases at minute 0 past every 8th hour
 0 */8 * * *  ${SHELL_BASH} ${cache_clear_script}
-
 EOF
-. ${CONFIG_DIR}/apache2
-. ${CONFIG_DIR}/mongo
+
+mongo_user="${RUNTIME_DIR}/${MONGO_USER_DETAILS}"
+
+    ECHO_INFO "Mongo user details information are stored in ${mongo_user}"
+    cp ${TOOLS_DIR}/${MONGO_USER_DETAILS} ${mongo_user}
+
+
+  

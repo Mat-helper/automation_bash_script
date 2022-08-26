@@ -1,0 +1,37 @@
+DB reference : 
+Superadmin details : 
+
+mongo --port $MONGO_PORT
+use admin;
+db.createUser(
+{
+user: "${ADMIN_USER}",
+pwd: "${AMDIN_PASSWD}",
+roles: [ { role: "userAdminAnyDatabase", db: "admin" }, "readWriteAnyDatabase" ]
+}
+)
+
+mongo -u ${ADMIN_USER} -p --authenticationDatabase admin --port $MONGO_PORT
+
+Password : ${AMDIN_PASSWD}
+
+
+Developer db details : 
+
+mongo --port $MONGO_PORT
+use ${DATABASE_NAME};
+db.createUser(
+{
+user: "${MONGO_USER}",
+pwd: "${MONGO_PASSWD}",
+roles : [ { role: "readWrite", db: "${DATABASE_NAME}" } ]
+}
+)
+
+mongo -u ${MONGO_USER} -p ${MONGO_PASSWD} 65.21.49.84:$MONGO_PORT/${DATABASE_NAME}
+
+mongoURI: "mongodb://${MONGO_USER}:${MONGO_PASSWD}@65.21.49.84:$MONGO_PORT/${DATABASE_NAME}"
+
+mongodump --host 65.21.49.84 -d ${DATABASE_NAME} --port $MONGO_PORT 
+
+mongorestore --host 65.21.49.84 -d ${DATABASE_NAME} --port $MONGO_PORT 

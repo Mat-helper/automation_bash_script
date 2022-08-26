@@ -7,3 +7,6 @@
 # date 4-aug-2022
 # 1. add the mongo db backup script and place it ot the location by script.
 # 2. separate the apache page configuration
+
+# date 25-aug-2022
+# 1. add mongo.conf file configuration

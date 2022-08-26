@@ -13,6 +13,7 @@ export _DEBUG_FLAG=" + < DEBUG >"
 # Command used to genrate a random string.
 # Usage: str="$(${RANDOM_STRING})"
 export RANDOM_STRING='eval </dev/urandom tr -dc A-Za-z | (head -c $1 &>/dev/null || head -c 6)' 
+export RANDOM_NUMBER='shuf -i 49152-65535 -n 1'
 
 # root user/group name. Note: not all OSes have group 'root'.
 export SYS_USER_ROOT='root'
@@ -20,6 +21,7 @@ export SYS_GROUP_ROOT='root'
 
 # Backup script file names.
 export BACKUP_SCRIPT_MONGO_NAME='backup_mongo.sh'
+export MONGO_USER_DETAILS='mongo_user_Details'
 
 # Cache clear scirpt file names.
 export BUFFER_CACHE_CLEAR='clearcache.sh'

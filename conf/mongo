@@ -5,6 +5,7 @@ export AMDIN_PASSWD="$(${RANDOM_STRING})"
 export MONGO_USER="$(${RANDOM_STRING})"
 export MONGO_PASSWD="$(${RANDOM_STRING})"
 export DATABASE_NAME="$(${RANDOM_STRING})"
+export MONGO_PORT="$(${RANDOM_NUMBER})"
 
 mongo  <<EOF
 use admin;
@@ -35,3 +36,17 @@ sudo sed -i "18 i export MONGO_USER='${MONGO_USER}'" ${mongo_backup_script}
 sudo sed -i "19 i export MONGO_PASSWD='${MONGO_PASSWD}'" ${mongo_backup_script}
 sudo sed -i "20 i export DATABASE_NAMES='${DATABASE_NAME}' " ${mongo_backup_script}
 
+
+# add the custom port for mongo and change the 127.0.0.1 IP to 0.0.0.0 for remote connection
+sudo sed -i -e "23 s/27017/$MONGO_PORT/g"  /etc/mongod.conf
+sudo sed -i -e "24 s/127.0.0.1/0.0.0.0/g"  /etc/mongod.conf
+
+# add the security authorization enabled
+sudo sed -i -e "31 s/#security:/security:/g" /etc/mongod.conf
+sudo sed -i '32 i authorization: enabled' /etc/mongod.conf
+
+echo "# Your Mongo default port is replaced and current mongo port is $MONGO_PORT "  >>${STATUS_FILE}
+echo "# Security Authorization is enabled "  >>${STATUS_FILE}
+
+# restart the mongod service
+sudo systemctl restart mongod
