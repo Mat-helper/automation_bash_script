@@ -28,7 +28,7 @@ export TOOLS_DIR="${ROOTDIR}/tools"
 export RUNTIME_DIR="${ROOTDIR}/runtime"
 
 [[ -d ${RUNTIME_DIR} ]] || mkdir -p ${RUNTIME_DIR}
-[[ -f ${STATUS_FILE} ]] || touch ${STATUS_FILE}
+#[[ -f ${STATUS_FILE} ]] || touch ${STATUS_FILE}
 
 
 . ${CONFIG_DIR}/global
@@ -43,9 +43,6 @@ export SERVER_DEBUG="${SERVER_DEBUG:=NO}"
 
 # Root Backup directory
 export BACKUP_DIR='/root/script'
-
-. ${CONFIG_DIR}/apache2
-. ${CONFIG_DIR}/mongo
 
 mongo_backup_script="${BACKUP_DIR}/${BACKUP_SCRIPT_MONGO_NAME}"
 
@@ -82,6 +79,11 @@ mongo_user="${RUNTIME_DIR}/${MONGO_USER_DETAILS}"
 
     ECHO_INFO "Mongo user details information are stored in ${mongo_user}"
     cp ${TOOLS_DIR}/${MONGO_USER_DETAILS} ${mongo_user}
+
+
+. ${CONFIG_DIR}/apache2
+. ${CONFIG_DIR}/mongo
+
 
 
   
