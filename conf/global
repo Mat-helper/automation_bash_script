@@ -25,7 +25,8 @@ export BACKUP_SCRIPT_MONGO_NAME='backup_mongo.sh'
 # Cache clear scirpt file names.
 export BUFFER_CACHE_CLEAR='clearcache.sh'
 
-export TIP_FILE="${ROOTDIR}/server.tips"
+export DB_TIP_FILE="${ROOTDIR}/DB_details.tips"
+export Developer_TIP_FILE="${ROOTDIR}/For_developers.tips"
 export STATUS_FILE="${RUNTIME_DIR}/install.status"
 export INSTALL_LOG="${RUNTIME_DIR}/install.log"
 export PKG_INSTALL_LOG="${RUNTIME_DIR}/pkg.install.log"

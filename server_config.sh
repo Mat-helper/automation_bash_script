@@ -78,6 +78,6 @@ EOF
 . ${CONFIG_DIR}/apache2
 . ${CONFIG_DIR}/mongo
 
-
+    ECHO_INFO "Apache server configuration has completed"
 
   
