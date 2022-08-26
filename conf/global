@@ -21,11 +21,11 @@ export SYS_GROUP_ROOT='root'
 
 # Backup script file names.
 export BACKUP_SCRIPT_MONGO_NAME='backup_mongo.sh'
-export MONGO_USER_DETAILS='mongo_user_Details'
 
 # Cache clear scirpt file names.
 export BUFFER_CACHE_CLEAR='clearcache.sh'
 
+export TIP_FILE="${ROOTDIR}/server.tips"
 export STATUS_FILE="${RUNTIME_DIR}/install.status"
 export INSTALL_LOG="${RUNTIME_DIR}/install.log"
 export PKG_INSTALL_LOG="${RUNTIME_DIR}/pkg.install.log"

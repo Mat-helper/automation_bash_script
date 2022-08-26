@@ -75,12 +75,6 @@ cache_clear_script="${BACKUP_DIR}/${BUFFER_CACHE_CLEAR}"
 0 */8 * * *  ${SHELL_BASH} ${cache_clear_script}
 EOF
 
-mongo_user="${RUNTIME_DIR}/${MONGO_USER_DETAILS}"
-
-    ECHO_INFO "Mongo user details information are stored in ${mongo_user}"
-    cp ${TOOLS_DIR}/${MONGO_USER_DETAILS} ${mongo_user}
-
-
 . ${CONFIG_DIR}/apache2
 . ${CONFIG_DIR}/mongo
 
