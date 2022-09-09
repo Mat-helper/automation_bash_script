@@ -91,7 +91,7 @@ export SSL_CONFIGURATION=''
 while : ; do
     ${DIALOG} \
     --title "SSL configuration" \
-    --inputbox "\
+    --radiolist "\
 Please specify option to configure the SSL.
 
 NOTES:
@@ -104,7 +104,7 @@ WARNING:
 
 "20 85 3 \
 "SSL purchased" "if ssl was purchased enter the ssl code here" "on"
-"Lets encrypt" "Lets Encrypt is a Non-profit certificate authority run by Internet Security Research Group." "off" \
+"Lets encrypt" "Lets Encrypt is a certificate authority ." "off" \
 "ssl certificate was not purchased" "I don't need any web applications on this server" "off" \
 2>${RUNTIME_DIR}/.ssl_configuration
 
@@ -118,15 +118,17 @@ done
 if [ X"${ssl_configuration}" == X'SSL purchased' ]; then
     export SSL_CONFIGURATION='SSL purchased'
 
+    echo "export SSL_CONFIGURATION='${SSL_CONFIGURATION}'" >>${SERVER_CONFIG_FILE}
+
 elif [ X"${ssl_configuration}" == X'Lets encrypt' ]; then
     export SSL_CONFIGURATION='Lets encrypt'
+
+    echo "export SSL_CONFIGURATION='${SSL_CONFIGURATION}'" >>${SERVER_CONFIG_FILE}
 
 else
     export DISABLE_SSL_CONFIUGRATION='YES'
     echo "export DISABLE_SSL_CONFIUGRATION='YES'" >>${SERVER_CONFIG_FILE}
 fi
-
-echo "export SSL_CONFIGURATION='${SSL_CONFIGURATION}'" >>${SERVER_CONFIG_FILE}
 
 cat >> ${TIP_FILE} <<EOF
 
@@ -142,8 +144,6 @@ else
     export DISABLE_WEB_SERVER='YES'
     echo "export DISABLE_WEB_SERVER='YES'" >>${SERVER_CONFIG_FILE}
 fi
-
-
 
 
 # ----------------------------------------------------------
