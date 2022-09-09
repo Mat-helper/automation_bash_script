@@ -162,8 +162,8 @@ TIP: Use SPACE key to select item.
 2>${RUNTIME_DIR}/.database
 
     DB_ORIG_CASE_SENSITIVE="$(cat ${RUNTIME_DIR}/.database)"
-    DB_SERVER="$(echo ${DB_ORIG_CASE_SENSITIVE} | tr '[a-z]' '[A-Z]')"
-    [ X"${DB_SERVER}" != X"" ] && break
+    DB_ORIG="$(echo ${DB_ORIG_CASE_SENSITIVE} | tr '[a-z]' '[A-Z]')"
+    [ X"${DB_ORIG}" != X"" ] && break
 done
 
     rm -f ${RUNTIME_DIR}/.database &>/dev/null
@@ -189,12 +189,7 @@ echo "export MONGO_DB_ADMIN_PASSWD='${MONGO_DB_ADMIN_PASSWD}'" >> ${SERVER_CONFI
 # --------------------- Backend --------------------
 # --------------------------------------------------
 export DISABLE_BACKEND_SERVER='NO'
-export DIALOG_AVAILABLE_BACKENDS=''
-
-export DIALOG_AVAILABLE_BACKENDS=''
-if [ X"${ENABLE_BACKEND_NODE}" == X'YES' ]; then
-    export DIALOG_AVAILABLE_BACKENDS="${DIALOG_AVAILABLE_BACKENDS} Node An_open_source, cross-platform, back-end Javascript outside a web browser off"
-fi
+export BACKEND=''
 
 while : ; do
     ${DIALOG} \
