@@ -13,7 +13,7 @@ NOTES:
 
 " 20 76 2>${RUNTIME_DIR}/.public_ip
 
-    PUBLIC_IP="$(cat ${RUNTIME_DIR}/.public_ip | tr '[0-9]' )"
+    PUBLIC_IP="$(cat ${RUNTIME_DIR}/.public_ip)"
 
     echo "${PUBLIC_IP}" | grep '\.' &>/dev/null
     [ X"${PUBLIC_IP}" == X'' ] && break

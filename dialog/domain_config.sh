@@ -42,7 +42,7 @@ If server has subdomain like 'www' or other than 'www'.
     SUBDOMAIN_NAME="$(cat ${RUNTIME_DIR}/.subdomain_name | tr '[A-Z]' '[a-z]')"
 
     echo "${SUBDOMAIN_NAME}" | grep '\.' &>/dev/null
-    [ X"$?" == X"0" -a X"${SUBDOMAIN_NAME}" != X"${DOMAIN_NAME}" ] && break
+    [ X"$?" != X"0" ] && break
 done
 
 export SUBDOMAIN_NAME="${SUBDOMAIN_NAME}"

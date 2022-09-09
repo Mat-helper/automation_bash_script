@@ -65,8 +65,8 @@ while : ; do
 
 TIP: Use SPACE key to select item." \
 20 76 3 \
-"APACHE2" "The fastest web server" "on" \
-"No web server" "I don't need any web applications on this server" "off" \
+"APACHE2" "The fastest web server." "on" \
+"No web server" "I don't need any web applications on this server." "off" \
 2>${RUNTIME_DIR}/.web_server
 
         web_server_case_sensitive="$(cat ${RUNTIME_DIR}/.web_server)"
@@ -99,7 +99,7 @@ NOTES:
 WARNING:
         * Make sure to use the free SSL for temporary don't go live with free ssl.\
 
-"20 76 3 \
+"20 85 3 \
 "SSL purchased" "if ssl was purchased enter the ssl code here" "on"
 "Lets encrypt" "Lets Encrypt is a Non-profit certificate authority run by Internet Security Research Group." "off" \
 "ssl certificate was not purchased" "I don't need any web applications on this server" "off" \
@@ -156,9 +156,9 @@ while : ; do
     --radiolist "It's strongly recommended to choose the one you're familiar with for easy maintenance. 
 
 TIP: Use SPACE key to select item.
-" 20 76 3 \
-"Mongo" "The source available cross platform document-oriented database program" "on" \
-"No db server" "I don't need to configure the mongo database instead of going through monogo altas" "off" \
+" 20 80 3 \
+"Mongo" "The platform document-oriented database program" "on" \
+"No db server" "Instead of going through monogo altas or later on" "off" \
 2>${RUNTIME_DIR}/.database
 
     DB_ORIG_CASE_SENSITIVE="$(cat ${RUNTIME_DIR}/.database)"
@@ -170,12 +170,6 @@ done
 
 if [ X"${DB_ORIG}" == X'MONGO' ]; then
     export DB_SERVER='MONGO'
-else 
-    export DISABLE_DB_SERVER='YES'
-    echo "export DISABLE_DB_SERVER=YES" >> ${SERVER_CONFIG_FILE}
-fi
-
-echo "export DB_SERVER='${DB_SERVER}'" >> ${SERVER_CONFIG_FILE}
 
 # For Mongo database management.
 
@@ -184,6 +178,14 @@ echo "export MONGO_DB_ADMIN_USER='${MONGO_DB_ADMIN_USER}'" >> ${SERVER_CONFIG_FI
 
 export MONGO_DB_ADMIN_PASSWD="$(${RANDOM_STRING})"
 echo "export MONGO_DB_ADMIN_PASSWD='${MONGO_DB_ADMIN_PASSWD}'" >> ${SERVER_CONFIG_FILE}
+
+
+else 
+    export DISABLE_DB_SERVER='YES'
+    echo "export DISABLE_DB_SERVER=YES" >> ${SERVER_CONFIG_FILE}
+fi
+
+echo "export DB_SERVER='${DB_SERVER}'" >> ${SERVER_CONFIG_FILE}
 
 # --------------------------------------------------
 # --------------------- Backend --------------------
@@ -197,8 +199,8 @@ while : ; do
     --radiolist "It's strongly recommended to choose the one you're familiar with for easy maintenance. 
 
 TIP: Use SPACE key to select item.
-" 20 76 4 \
-"Node" "An_open_source, cross-platform, back-end Javascript outside a web browser" "on" \ 
+" 20 76 3 \
+"Node" "An_open_source back-end Javascript outside a web browser" "on" \
 "No backend server" "I don't need to configure the backend server" "off" \
  2>${RUNTIME_DIR}/.backend
 

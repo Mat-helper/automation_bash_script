@@ -11,7 +11,7 @@ NOTES:
 
 " 20 76 2>${RUNTIME_DIR}/.system_username
 
-    SYSTEM_ACCOUNT_NAME="$(cat ${RUNTIME_DIR}/.system_username | tr '[a-z]')"
+    SYSTEM_ACCOUNT_NAME="$(cat ${RUNTIME_DIR}/.system_username)"
 
     echo "${SYSTEM_ACCOUNT_NAME}" | grep '\.' &>/dev/null
     [ X"${SYSTEM_ACCOUNT_NAME}" == X'' ] && break
