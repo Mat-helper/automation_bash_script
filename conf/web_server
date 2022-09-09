@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+#################################
+#apache server  configuration
+#################################
+
+# web servers 
+export PORT_HTTP="${PORT_HTTP:=80}"
+export HTTPS_PORT="${HTTPS_PORT:=443}"
+
+
+if [ X"${DISTRO}" == X'UBUNTU' ]; then
+    # Web data.
+    export HTTPD_DOCUMENTROOT='/var/www/html'
+
+# Daemon user.
+export HTTPD_USER='www-data'
+export HTTPD_GROUP='www-data'
+
+fi

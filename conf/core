@@ -39,6 +39,17 @@ ECHO_DEBUG()
     echo -e "${_DEBUG_FLAG} $@" >> ${INSTALL_LOG}
 }
 
+read_setting()
+{
+    answer="${1}"
+    if [ ! -z "${answer}" ]; then
+        ANSWER="${answer}"
+        echo ${ANSWER}
+    else
+        read ANSWER
+    fi
+}
+
 backup_file()
 {
     # Usage: backup_file file1 [file2 file3 ... fileN]
@@ -52,4 +63,215 @@ backup_file()
             fi
         done
     fi
+}
+
+check_user()
+{
+    # Check special user privilege to execute this script.
+    if [ X"$(id -u)" != X"$(id -u ${1})" ]; then
+        ECHO_ERROR "Please run this script as user: ${1}."
+        exit 255
+    else
+        if [ X"$(id -u)" == X"0" ]; then
+            export PATH="/usr/kerberos/sbin:/usr/kerberos/bin:/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/root/bin"
+        else
+            :
+        fi
+    fi
+}
+
+check_pkg() {
+    # Usage: check_pkg <command> <package>
+    # It means: <package> owns <command>
+    cmd="$1"
+    pkg="$2"
+
+    for i in $(echo $PATH|sed 's/:/ /g'); do
+        [ -x $i/${cmd} ] && export HAS_CMD='YES' && break
+    done
+
+    if [ X"${HAS_CMD}" != X'YES' ]; then
+        export MISSING_PKGS="${MISSING_PKGS} ${pkg}"
+    fi
+
+    unset HAS_CMD
+}
+
+install_missing_pkg() {
+    if [ X"${MISSING_PKGS}" != X"" ]; then
+        eval ${install_pkg} ${MISSING_PKGS}
+        if [ X"$?" != X"0" ]; then
+            ECHO_ERROR "Please install missing package(s) ${MISSING_PKGS} first." && exit 255
+        fi
+    fi
+}
+
+check_runtime_dir() {
+    [ -d ${RUNTIME_DIR} ] || mkdir -p ${RUNTIME_DIR}
+
+    # Cleanup
+    rm -f ${RUNTIME_DIR}/.pkg_install_failed &>/dev/null
+}
+
+
+# Check necessery privileges/files/dirs.
+check_env()
+{
+    check_runtime_dir
+
+    # Check user privilege.
+    check_user root
+
+    # Check config tool: dialog.
+    check_pkg ${BIN_DIALOG} ${PKG_DIALOG}
+
+    # Check unzip & zip 
+    check_pkg ${BIN_ZIP} ${PKG_ZIP} 
+    check_pkg ${BIN_UNZIP} ${PKG_UNZIP}
+    check_pkg ${BIN_CURL} ${BIN_CURL}
+
+    ECHO_INFO -n "Checking configuration file: ${SERVER_CONFIG_FILE} ..."
+    if [ -f ${SERVER_CONFIG_FILE} ]; then
+        if grep '^#EOF$' ${SERVER_CONFIG_FILE} >/dev/null; then
+            echo -e " [FOUND]"
+            ECHO_QUESTION -n "Use it for server setting? [y|N]"
+            read_setting ${AUTO_USE_EXISTING_CONFIG_FILE}
+            case ${ANSWER} in
+                Y|y|[Yy][Ee][Ss] )
+                    ECHO_INFO "Use config file: ${SERVER_CONFIG_FILE} for server setting."
+                    . ${SERVER_CONFIG_FILE}
+
+                    # Check installation status.
+                    # After each component installation was completed, there
+                    # should be a variable in ${STATUS_FILE}, e.g.
+                    #
+                    #   export STATUS_APACHE_INSTALLATION='DONE'
+                    #   export STATUS_APACHE_CONFIGURATION='DONE'
+                    #
+                    if [ -f ${STATUS_FILE} ]; then
+                        ECHO_INFO "Import installation process status from file: ${STATUS_FILE}."
+                        . ${STATUS_FILE}
+                    else
+                        echo '' > ${STATUS_FILE}
+                    fi
+
+                    # Initialize tip file.
+                    if [ ! -f ${TIP_FILE} ]; then
+                        cat > ${TIP_FILE} <<EOF
+${CONF_MSG}
+EOF
+
+                        chown ${SYS_USER_ROOT}:${SYS_GROUP_ROOT} ${TIP_FILE}
+                        chmod 0400 ${TIP_FILE}
+                    fi
+                    ;;
+                N|n|* )
+                    ECHO_INFO "Skip configuration file: ${SERVER_CONFIG_FILE}."
+                    backup_file ${SERVER_CONFIG_FILE}
+                    . ${CONFIG_VIA_DIALOG}
+                    ;;
+            esac
+        else
+            ECHO_INFO "Found, but not finished. Launching installation wizard."
+            . ${CONFIG_VIA_DIALOG}
+        fi
+    else
+        ECHO_INFO "NOT FOUND. Launching installation wizard."
+        . ${CONFIG_VIA_DIALOG}
+    fi
+}
+
+check_status_before_run()
+{
+    # If function was successfully executed, this function will write one line
+    # in $STATUS_FILE:
+    #
+    #   export status_[function_name]='DONE'
+    #
+    function_name="${1}"
+    function_status_name="status_${function_name}"
+    function_status_value="$(eval echo \$${function_status_name})"
+    if [ X"${function_status_value}" == X"DONE" ]; then
+        ECHO_SKIP "Function: $1."
+    else
+        $function_name
+    fi
+}
+
+generate_password_hash()
+{
+    _scheme="${1}"
+    _password="${2}"
+
+    if [ X"${_scheme}" == X'BCRYPT' ]; then
+        _scheme='BLF-CRYPT'
+    fi
+
+    doveadm pw -s "${_scheme}" -p "${_password}"
+}
+
+# Install/Remove binary packages on Debian/Ubuntu.
+install_pkg_debian()
+{
+    ECHO_INFO "Installing package(s): $@"
+    ${APTGET} install -y $@
+
+    # Leave a mark if package installation failed.
+    if [ X"$?" != X"0" ]; then
+        echo '' > ${RUNTIME_DIR}/.pkg_install_failed
+    fi
+}
+
+remove_pkg_debian()
+{
+    ECHO_INFO "Removing package(s): $@"
+    ${APTGET} purge -y $@
+    if [ X"$?" != X"0" ]; then
+        ECHO_ERROR "Package removed failed, please check the terminal output."
+        echo '' > ${RUNTIME_DIR}/.pkg_remove_failed
+    fi
+}
+
+ask_confirm()
+{
+    # Usage: ask_confirm 'prompt text'
+    prompt_text="${1}"
+    echo -ne "${prompt_text} [y|N]"
+    read ANSWER
+    case ${ANSWER} in
+        Y|y ) : ;;
+        N|n|* ) echo "Exit." && exit ;;
+    esac
+}
+
+update_sysctl_param()
+{
+    export _param="$1"
+    export _value="$2"
+
+    if grep "^${_param}\>" ${SYSCTL_CONF} &>/dev/null; then
+        # param exists, updating it.
+        perl -pi -e 's#^($ENV{_param})[ =].*#${1}=$ENV{_value}#' ${SYSCTL_CONF}
+    else
+        # param doesn't exist. add a new one.
+        echo "${_param}=${_value}" >> ${SYSCTL_CONF}
+    fi
+
+    unset _param _value
+}
+
+write_server_kv()
+{
+    # usage: write_server_kv <param> <value>
+    # Storage value to file /root/.server/kv/<param>.
+    param="$1"
+    value="$2"
+
+    [[ -f ${SERVER_KV_DIR} ]] || mkdir -p ${SERVER_KV_DIR}
+
+    f="${SERVER_KV_DIR}/${param}"
+    echo "${value}" > ${f}
+
+    chown -R ${SYS_USER_ROOT}:${SYS_GROUP_ROOT} ${SERVER_KV_DIR}
+    chmod -R 0400 ${SERVER_KV_DIR}
 }

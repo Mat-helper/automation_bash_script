@@ -1,9 +1,7 @@
 #!/usr/bin/env bash
 
-ECHO_INFO "Mongo server configuration started"  >>${STATUS_FILE}
+ECHO_INFO "Configure Mongo database server."  
 
-export ADMIN_USER="$(${RANDOM_STRING})"
-export AMDIN_PASSWD="$(${RANDOM_STRING})"
 export MONGO_USER="$(${RANDOM_STRING})"
 export MONGO_PASSWD="$(${RANDOM_STRING})"
 export DATABASE_NAME="$(${RANDOM_STRING})"
@@ -13,14 +11,14 @@ mongo  <<EOF
 use admin;
 db.createUser(
   {
-    user: "${ADMIN_USER}", 
-    pwd: "${AMDIN_PASSWD}", 
+    user: "${MONGO_DB_ADMIN_USER}", 
+    pwd: "${MONGO_DB_ADMIN_PASSWD}", 
     roles: [ { role: "userAdminAnyDatabase", db: "admin" } ]
   }
 )
 EOF
 
-mongo -u ${ADMIN_USER} -p ${AMDIN_PASSWD} --authenticationDatabase admin  <<EOF
+mongo -u ${MONGO_DB_ADMIN_USER} -p ${MONGO_DB_ADMIN_PASSWD} --authenticationDatabase admin  <<EOF
 use ${DATABASE_NAME};
 db.createUser(
     {
@@ -30,14 +28,12 @@ db.createUser(
     }
 )
 EOF
-echo "# Your Mongo admin username and password is 'username: ${ADMIN_USER} password: ${AMDIN_PASSWD} "  >>${STATUS_FILE}
-echo "# Your Mongo URI for developer is 'username: ${MONGO_USER} password: ${MONGO_PASSWD} db: ${DATABASE_NAME}' " >>${STATUS_FILE}
 
 # insert the username , password and port number to backup script file
-sudo sed -i "18 i export MONGO_USER='${MONGO_USER}'" ${mongo_backup_script}
-sudo sed -i "19 i export MONGO_PASSWD='${MONGO_PASSWD}'" ${mongo_backup_script}
-sudo sed -i "20 i export DATABASE_NAMES='${DATABASE_NAME}' " ${mongo_backup_script}
-sudo sed -i "21 i export MONGO_PORT='${MONGO_PORT}' " ${mongo_backup_script}
+#sudo sed -i "18 i export MONGO_USER='${MONGO_USER}'" ${mongo_backup_script}
+#sudo sed -i "19 i export MONGO_PASSWD='${MONGO_PASSWD}'" ${mongo_backup_script}
+#sudo sed -i "20 i export DATABASE_NAMES='${DATABASE_NAME}' " ${mongo_backup_script}
+#sudo sed -i "21 i export MONGO_PORT='${MONGO_PORT}' " ${mongo_backup_script}
 
 # add the custom port for mongo and change the 127.0.0.1 IP to 0.0.0.0 for remote connection
 sudo sed -i -e "23 s/27017/$MONGO_PORT/g"  /etc/mongod.conf
@@ -56,16 +52,16 @@ cat >> ${DB_TIP_FILE} <<EOF
 Mongo DB reference : 
 
 Superadmin details : 
-          * Username: ${ADMIN_USER}
-          * Password: ${AMDIN_PASSWD}
+          * Username: ${MONGO_DB_ADMIN_USER}
+          * Password: ${MONGO_DB_ADMIN_PASSWD}
           * Port:     ${MONGO_PORT}
           * DB_NAME:  admin
 
 command: 
 
-mongo -u ${ADMIN_USER} -p --authenticationDatabase admin --port $MONGO_PORT
+mongo -u ${MONGO_DB_ADMIN_USER} -p --authenticationDatabase admin --port $MONGO_PORT
 
-Password : ${AMDIN_PASSWD}
+Password : ${MONGO_DB_ADMIN_PASSWD}
 
     This is admin login details for mongo database 
 ##################  INFO: Don't share with developers. #####################
@@ -108,4 +104,3 @@ mongo -u ${MONGO_USER} -p ${MONGO_PASSWD} 65.21.49.84:$MONGO_PORT/${DATABASE_NAM
 mongoURI: "mongodb://${MONGO_USER}:${MONGO_PASSWD}@65.21.49.84:$MONGO_PORT/${DATABASE_NAME}" 
 EOF
 
-ECHO_INFO "Mongo server configuration completed"  >>${STATUS_FILE}
