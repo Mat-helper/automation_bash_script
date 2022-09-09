@@ -89,7 +89,6 @@ install_missing_pkg
      ECHO_INFO "apt upgrade ..."
     ${APTGET} upgrade -y
 
-fi
 
 echo_end_msg && \
 echo 'export status_get_all="DONE"' >> ${STATUS_FILE}

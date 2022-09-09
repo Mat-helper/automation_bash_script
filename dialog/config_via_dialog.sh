@@ -32,7 +32,6 @@ while :; do
         --title "Project Name" \
         --inputbox "\
 Please enter the name of the project (in lowercase) used to create user .
-Default is: ${PROJECT_NAME}
 
 NOTES:
 
@@ -43,6 +42,7 @@ NOTES:
 " 20 76 "${PROJECT_NAME}" 2>${RUNTIME_DIR}/.project_name
 
     export PROJECT_NAME="$(cat ${RUNTIME_DIR}/.project_name | tr '[A-Z]' '[a-z]')"
+    [ X"${PROJECT_NAME}" != X'' ] && break
  
 done
 
