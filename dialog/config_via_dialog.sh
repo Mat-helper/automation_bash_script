@@ -91,7 +91,7 @@ export SSL_CONFIGURATION=''
 while : ; do
     ${DIALOG} \
     --title "SSL configuration" \
-    --radiolist "\
+    --radiolist " \
 Please specify option to configure the SSL.
 
 NOTES:
@@ -100,12 +100,11 @@ NOTES:
         * If SSL was purchased please copy and paste the file .
 
 WARNING:
-        * Make sure to use the free SSL for temporary don't go live with free ssl.\
-
-"20 85 3 \
-"SSL purchased" "if ssl was purchased enter the ssl code here" "on"
-"Lets encrypt" "Lets Encrypt is a certificate authority ." "off" \
-"ssl certificate was not purchased" "I don't need any web applications on this server" "off" \
+        * Make sure to use the free SSL for temporary don't go live with free ssl." \
+20 76 3 \
+"SSL purchased" "If ssl was purchased enter the ssl code here." "on"
+"Lets encrypt" "Lets Encrypt is a certificate authority." "off" \
+"ssl not purchased" "I don't need any web applications on this server." "off" \
 2>${RUNTIME_DIR}/.ssl_configuration
 
         ssl_configuration_case_sensitive="$(cat ${RUNTIME_DIR}/.ssl_configuration)"
