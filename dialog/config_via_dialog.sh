@@ -78,6 +78,9 @@ TIP: Use SPACE key to select item." \
 
 if [ X"${web_server}" == X'APACHE2' ]; then
     export WEB_SERVER='APACHE2'
+
+echo "export WEB_SERVER='${WEB_SERVER}'" >>${SERVER_CONFIG_FILE}
+
 # domain configuration.
 . ${DIALOG_DIR}/domain_config.sh
 
@@ -140,7 +143,7 @@ else
     echo "export DISABLE_WEB_SERVER='YES'" >>${SERVER_CONFIG_FILE}
 fi
 
-echo "export WEB_SERVER='${WEB_SERVER}'" >>${SERVER_CONFIG_FILE}
+
 
 
 # ----------------------------------------------------------
@@ -171,6 +174,8 @@ done
 if [ X"${DB_ORIG}" == X'MONGO' ]; then
     export DB_SERVER='MONGO'
 
+echo "export DB_SERVER='${DB_SERVER}'" >> ${SERVER_CONFIG_FILE}
+
 # For Mongo database management.
 
 export MONGO_DB_ADMIN_USER="$(${RANDOM_STRING})"
@@ -179,13 +184,12 @@ echo "export MONGO_DB_ADMIN_USER='${MONGO_DB_ADMIN_USER}'" >> ${SERVER_CONFIG_FI
 export MONGO_DB_ADMIN_PASSWD="$(${RANDOM_STRING})"
 echo "export MONGO_DB_ADMIN_PASSWD='${MONGO_DB_ADMIN_PASSWD}'" >> ${SERVER_CONFIG_FILE}
 
-
 else 
     export DISABLE_DB_SERVER='YES'
     echo "export DISABLE_DB_SERVER=YES" >> ${SERVER_CONFIG_FILE}
 fi
 
-echo "export DB_SERVER='${DB_SERVER}'" >> ${SERVER_CONFIG_FILE}
+
 
 # --------------------------------------------------
 # --------------------- Backend --------------------
@@ -213,12 +217,15 @@ done
 
 if [ X"${BACKEND_ORIG}" == X'NODE' ]; then
     export BACKEND='NODE'
+
+echo "export BACKEND='${BACKEND}'" >> ${SERVER_CONFIG_FILE}
+
 else 
     export DISABLE_BACKEND_SERVER='YES'
     echo "export DISABLE_BACKEND_SERVER=YES" >> ${SERVER_CONFIG_FILE}
 fi
 
-echo "export BACKEND='${BACKEND}'" >> ${SERVER_CONFIG_FILE}
+
 
 # get Public IP address of this server
 . ${DIALOG_DIR}/Ip_config.sh
