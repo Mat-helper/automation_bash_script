@@ -13,8 +13,7 @@ NOTES:
 
     SYSTEM_ACCOUNT_NAME="$(cat ${RUNTIME_DIR}/.system_username)"
 
-    echo "${SYSTEM_ACCOUNT_NAME}" | grep '\.' &>/dev/null
-    [ X"${SYSTEM_ACCOUNT_NAME}" == X'' ] && break
+    [ X"${SYSTEM_ACCOUNT_NAME}" != X'' ] && break
 done
 
 export SYSTEM_ACCOUNT_NAME="${SYSTEM_ACCOUNT_NAME}"
