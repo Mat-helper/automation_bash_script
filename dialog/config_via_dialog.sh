@@ -78,15 +78,8 @@ TIP: Use SPACE key to select item." \
 
 if [ X"${web_server}" == X'APACHE2' ]; then
     export WEB_SERVER='APACHE2'
-
 # domain configuration.
 . ${DIALOG_DIR}/domain_config.sh
-else
-    export DISABLE_WEB_SERVER='YES'
-    echo "export DISABLE_WEB_SERVER='YES'" >>${SERVER_CONFIG_FILE}
-fi
-
-echo "export WEB_SERVER='${WEB_SERVER}'" >>${SERVER_CONFIG_FILE}
 
 #SSL configuration
 export DISABLE_SSL_CONFIUGRATION='NO'
@@ -141,6 +134,14 @@ You entered details regarding the domain :
     * ssl_status :           ${SSL_CONFIGURATION}
 
 EOF
+
+else
+    export DISABLE_WEB_SERVER='YES'
+    echo "export DISABLE_WEB_SERVER='YES'" >>${SERVER_CONFIG_FILE}
+fi
+
+echo "export WEB_SERVER='${WEB_SERVER}'" >>${SERVER_CONFIG_FILE}
+
 
 # ----------------------------------------------------------
 # --------------------- Database server --------------------
@@ -242,7 +243,7 @@ cat <<EOF
 * Below file contains sensitive infomation (username/password), please  *
 * do remember to *MOVE* it to a safe place after installation.          *
 *                                                                       *
-*   * ${SERVER_CONFIG_FILE}                                             *
+    * ${SERVER_CONFIG_FILE}                                           
 *                                                                       *
 *************************************************************************
 ********************** Review your settings *****************************
