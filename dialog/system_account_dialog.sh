@@ -14,7 +14,7 @@ NOTES:
     SYSTEM_ACCOUNT_NAME="$(cat ${RUNTIME_DIR}/.system_username | tr '[a-z]')"
 
     echo "${SYSTEM_ACCOUNT_NAME}" | grep '\.' &>/dev/null
-    [ X"$?" == X"0" ] && break
+    [ X"${SYSTEM_ACCOUNT_NAME}" == X'' ] && break
 done
 
 export SYSTEM_ACCOUNT_NAME="${SYSTEM_ACCOUNT_NAME}"
@@ -43,7 +43,7 @@ WARNING:
     done
 
     export SYSTEM_USER_PASSWD="${SYSTEM_USER_PASSWD}"
-fi
+
 
 echo "export SYSTEM_USER_PASSWD='${SYSTEM_USER_PASSWD}'" >>${SERVER_CONFIG_FILE}
 

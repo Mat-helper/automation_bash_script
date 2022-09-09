@@ -16,7 +16,7 @@ NOTES:
     PUBLIC_IP="$(cat ${RUNTIME_DIR}/.public_ip | tr '[0-9]' )"
 
     echo "${PUBLIC_IP}" | grep '\.' &>/dev/null
-    [ X"$?" == X"0" ] && break
+    [ X"${PUBLIC_IP}" == X'' ] && break
 done
 
 export PUBLIC_IP="${PUBLIC_IP}"

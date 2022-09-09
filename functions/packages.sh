@@ -7,7 +7,7 @@ install_all()
     DISABLED_SERVICES=''
     
  # Apache2
-    if [ X"${WEB_SERVER}" == X'APAPACHE2' ]; then
+    if [ X"${WEB_SERVER}" == X'APACHE2' ]; then
        if [ X"${DISTRO}" == X'UBUNTU' ]; then
             ALL_PKGS="${ALL_PKGS} apache2"
         fi

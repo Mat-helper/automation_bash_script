@@ -54,7 +54,7 @@ check_env
 
 # Define paths of some directories
 # Directory used to store daily backup files
-export BACKUP_DIR="/${ROOTDIR}/backup"
+export BACKUP_DIR="${ROOTDIR}/backup"
 
 cache_clear_script="${BACKUP_DIR}/${BUFFER_CACHE_CLEAR}"
 
