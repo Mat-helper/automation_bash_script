@@ -41,19 +41,18 @@ install_all()
           
         fi
         ENABLED_SERVICES="${ENABLED_SERVICES} ${MONGO_RC_SCRIPT_NAME} "
-    fi
+fi
 
     # Firewall
     if [ X"${DISTRO}" == X'UBUNTU' ]; then
         # Disable ufw service.
         export DISABLED_SERVICES="${DISABLED_SERVICES} ufw"
 
-        # Use nftables since Ubuntu 20.04.
-        ALL_PKGS="${ALL_PKGS} nftables"
-        ENABLED_SERVICES="${ENABLED_SERVICES} nftables"
     fi
 
     export ALL_PKGS ENABLED_SERVICES DISABLED_SERVICES PKG_SCRIPTS
+
+    
 
     # Install all packages.
     install_all_pkgs()
@@ -62,26 +61,20 @@ install_all()
 
         if [ -f ${RUNTIME_DIR}/.pkg_install_failed ]; then
             ECHO_ERROR "Installation failed, please check the terminal output."
-            ECHO_ERROR "If you're not sure what the problem is, try to get help in iRedMail"
-            ECHO_ERROR "forum: https://forum.iredmail.org/"
+            ECHO_ERROR "If you're not sure what the problem is, try to get help with admin"
             exit 255
         fi
+        echo 'export status_after_install_all="DONE"' >> ${STATUS_FILE}
     }
-    }
+ cat >> ${TIP_FILE} <<EOF
+* Enabled services: ${ENABLED_SERVICES}
 
-    after_package_installation()
-    {
-        echo 'export status_after_package_installation="DONE"' >> ${STATUS_FILE}
-    }
+EOF
 
     # Do not run them with 'check_status_before_run', so that we can always
     # install missed packages and enable/disable new services while re-run
     # iRedMail installer.
     install_all_pkgs
-    enable_all_services
 
-    check_status_before_run after_package_installation
-
-
-
+   # check_status_before_run after_package_installation
 }

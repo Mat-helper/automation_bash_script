@@ -235,7 +235,7 @@ cat <<EOF
 * Below file contains sensitive infomation (username/password), please                     *
 * do remember to *MOVE* it to a safe place after installation.                             *
 *                                                                                          *
-*   * ${SERVER_CONFIG_FILE}                                                                *   
+   * ${SERVER_CONFIG_FILE}                                                                   
 *                                                                                          *
 ********************************************************************************************
 ********************************** Review your settings ************************************
@@ -243,7 +243,6 @@ cat <<EOF
 
 * Project Name :                        ${PROJECT_NAME}
 * Database Server :                     ${DB_ORIG_CASE_SENSITIVE}
-* Daily backup of MONGO databases:      ${BACKUP_DIR}
 * Backend server:                       ${BACKEND_ORIG_CASE_SENSITIVE}
 * Web server :                          ${web_server_case_sensitive}
 * Domain Name :                         ${SUBDOMAIN_NAME}.${DOMAIN_NAME}

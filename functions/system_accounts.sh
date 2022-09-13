@@ -21,6 +21,8 @@ add_user_develop()
 add_pem_file()
 {
     ECHO_INFO "Generate the pem file to login user."
+
+    [[ -d ${RUNTIME_DIR}/.ssh ]] || mkdir -p ${RUNTIME_DIR}/.ssh
     
     ssh-keygen -b 2048 -t rsa -f ${RUNTIME_DIR}/.ssh/${SYSTEM_ACCOUNT_NAME} -q -N "" 
 
