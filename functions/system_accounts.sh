@@ -10,7 +10,7 @@ add_user_develop()
 
     chown -R  ${SYSTEM_ACCOUNT_NAME}:${SYS_GROUP_WEB} /var/www
 
-    echo "${SYSTEM_ACCOUNT_NAME} ALL=(ALL) NOPASSWD:${PRIVILEGES}" >> /etc/sudoers
+    echo "${SYSTEM_ACCOUNT_NAME} ALL = NOPASSWD: ${PRIVILEGES}" >> /etc/sudoers
 
     visudo -c
 

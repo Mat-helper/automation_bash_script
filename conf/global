@@ -134,7 +134,7 @@ export SYS_GROUP_ROOT='root'
 export SYS_USER_WEB='www-data'
 export SYS_GROUP_WEB='www-data'
 
-export PRIVILEGES='/var/www,/bin/zip,/bin/unzip,/bin/pm2/,/bin/nano,/bin/kill'
+export PRIVILEGES='/var/www,/bin/zip,/bin/unzip,/bin/pm2/,/bin/nano,/bin/kill,/bin/mkdir'
 
 # Check processor type.
 if [ X"${DISTRO}" == X'DEBIAN' ]; then
