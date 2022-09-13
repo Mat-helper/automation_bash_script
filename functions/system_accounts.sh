@@ -14,8 +14,6 @@ add_user_develop()
 
     visudo -c
 
-    echo 'export status_add_user_develop="DONE"' >> ${STATUS_FILE}
-
     add_pem_file()
     {
     ECHO_INFO "Generate the pem file to login user."
@@ -57,7 +55,7 @@ cat >> ${TIP_FILE} <<EOF
 EOF
 
     }
-
+echo 'export status_add_user_develop="DONE"' >> ${STATUS_FILE}
 }
 
 add_required_users()
