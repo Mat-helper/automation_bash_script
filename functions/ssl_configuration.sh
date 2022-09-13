@@ -1,8 +1,6 @@
-
-
 #!/usr/bin/env bash
 
-ssl_cert_file ()
+generate_ssl_keys ()
 {
     if [ X"${SSL_CONFIGURATION}" == X'SSL purchased' ]; then
 

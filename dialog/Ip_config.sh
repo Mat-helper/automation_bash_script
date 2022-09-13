@@ -15,7 +15,9 @@ NOTES:
 
     PUBLIC_IP="$(cat ${RUNTIME_DIR}/.public_ip)"
 
-    [ X"${PUBLIC_IP}" != X'' ] && break
+    nm='([1-9]?[0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])'
+
+    [ X"${PUBLIC_IP}" != X'' -a "${PUBLIC_IP}" =~ ^$nm\.$nm\.$nm\.$nm$  ] && break
 done
 
 export PUBLIC_IP="${PUBLIC_IP}"

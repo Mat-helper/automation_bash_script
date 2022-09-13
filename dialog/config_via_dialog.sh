@@ -31,7 +31,7 @@ while :; do
     ${DIALOG} \
         --title "Project Name" \
         --inputbox "\
-Please enter the name of the project (in lowercase) used to create user .
+Please enter the name of the project (in lowercase) used to create user.
 
 NOTES:
 
@@ -64,7 +64,7 @@ while : ; do
         --radiolist "Choose a web server you want to run.
 
 TIP: Use SPACE key to select item." \
-20 76 3 \
+20 79 3 \
 "APACHE2" "The fastest web server." "on" \
 "No web server" "I don't need any web applications on this server." "off" \
 2>${RUNTIME_DIR}/.web_server
@@ -96,13 +96,13 @@ Please specify option to configure the SSL.
 
 NOTES:
         * If SSL was not purchased disable the option and do it later on manually.
-        * If server is going to use free ssl for temporary from lets encrypt
+        * If server is going to use free ssl for temporary from lets encrypt.
         * If SSL was purchased please copy and paste the file .
 
 WARNING:
         * Make sure to use the free SSL for temporary don't go live with free ssl." \
-20 80 6 \
-"SSL purchased" "If ssl was purchased enter the ssl code here." "on"
+25 90 3 \
+"SSL purchased" "If ssl was purchased enter the ssl code here." "on" \
 "Lets encrypt" "Lets Encrypt is a certificate authority." "off" \
 "ssl not purchased" "I don't need any web applications on this server." "off" \
 2>${RUNTIME_DIR}/.ssl_configuration
@@ -155,12 +155,13 @@ export DB_SERVER=''
 while : ; do
     ${DIALOG} \
     --title "Choose preferred database " \
-    --radiolist "It's strongly recommended to choose the one you're familiar with for easy maintenance. 
+    --radiolist " \
+    It's strongly recommended to choose the one you're familiar with for easy maintenance. 
 
 TIP: Use SPACE key to select item.
 " 20 80 3 \
-"Mongo" "The platform document-oriented database program" "on" \
-"No db server" "Instead of going through monogo altas or later on" "off" \
+"Mongo" "The platform document-oriented database program." "on" \
+"No db server" "Instead of going through monogo altas or Don't need." "off" \
 2>${RUNTIME_DIR}/.database
 
     DB_ORIG_CASE_SENSITIVE="$(cat ${RUNTIME_DIR}/.database)"
@@ -189,12 +190,13 @@ export BACKEND=''
 while : ; do
     ${DIALOG} \
     --title "Choose preferred backend " \
-    --radiolist "It's strongly recommended to choose the one you're familiar with for easy maintenance. 
+    --radiolist " \
+    It's strongly recommended to choose the one you're familiar with for easy maintenance. 
 
 TIP: Use SPACE key to select item.
-" 20 76 3 \
-"Node" "An_open_source back-end Javascript outside a web browser" "on" \
-"No backend server" "I don't need to configure the backend server" "off" \
+" 30 95 3 \
+"Node" "An_open_source back-end Javascript outside a web browser." "on" \
+"No backend server" "I don't need to configure the backend server." "off" \
  2>${RUNTIME_DIR}/.backend
 
     BACKEND_ORIG_CASE_SENSITIVE="$(cat ${RUNTIME_DIR}/.backend)"
