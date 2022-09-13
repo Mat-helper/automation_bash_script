@@ -32,8 +32,8 @@ apache2_config()
     sudo echo -e "Header set X-Frame-Options: \"sameorigin\"" >> ${HTTP_CONF_DIR_AVAILABLE_CONF}/security.conf     
 
     # Ports
-    perl -pi -e 's#PH_PORT_HTTP#$ENV{PORT_HTTP}#g' ${HTTP_CONF_DIR_AVAILABLE_SITES}/${APACHE2_CONF_SITE_DEFAULT}
-    perl -pi -e 's#PH_HTTPS_PORT#$ENV{HTTPS_PORT}#g' ${HTTP_CONF_DIR_AVAILABLE_SITES}/${APACHE2_CONF_SITE_DEFAULT_SSL}
+    perl -pi -e 's#PH_PORT_HTTP#$ENV{PORT_HTTP}#g' ${APACHE2_CONF_SITE_DEFAULT}
+    perl -pi -e 's#PH_HTTPS_PORT#$ENV{HTTPS_PORT}#g' ${APACHE2_CONF_SITE_DEFAULT_SSL}
 
     # web sites
     perl -pi -e 's#PH_HTTP_DOCUMENTROOT#$ENV{HTTP_DOCUMENTROOT}#g' ${HTTP_CONF_DIR_AVAILABLE_SITES}/*.conf

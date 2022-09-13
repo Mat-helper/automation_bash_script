@@ -64,7 +64,7 @@ fi
             ECHO_ERROR "If you're not sure what the problem is, try to get help with admin"
             exit 255
         fi
-        echo 'export status_after_install_all="DONE"' >> ${STATUS_FILE}
+        echo 'export status_install_all="DONE"' >> ${STATUS_FILE}
     }
  cat >> ${TIP_FILE} <<EOF
 * Enabled services: ${ENABLED_SERVICES}

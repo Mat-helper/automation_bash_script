@@ -81,7 +81,7 @@ check_status_before_run install_all || (ECHO_ERROR "Package installation error, 
 
 cat <<EOF
 ********************************************************************
-* Start iRedMail Configurations
+* Start server Configurations
 ********************************************************************
 EOF
 
