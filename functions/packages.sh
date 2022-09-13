@@ -17,8 +17,8 @@ install_all()
 
  # lets encrypt
 
-    if [ X"${SSL_CONFIGURATION}" == X'Lets encrypt']; then
-         if [ X"${DISTRO}" == X'UBUNTU' ]; then
+    if [ X"${SSL_CONFIGURATION}" == X'Lets encrypt' ]; then
+       if [ X"${DISTRO}" == X'UBUNTU' ]; then
          add-apt-repository ppa:certbot/certbot
          ALL_PKGS="${ALL_PKGS} python-certbot-apache"
          fi
@@ -74,10 +74,12 @@ EOF
     # Do not run them with 'check_status_before_run', so that we can always
     # install missed packages and enable/disable new services while re-run
     # iRedMail installer.
+    ECHO_INFO "apt update ..."
+    ${APTGET} update
     install_all_pkgs
 
    # check_status_before_run after_package_installation
 
     echo 'export status_install_all="DONE"' >> ${STATUS_FILE}
-    
+
 }
