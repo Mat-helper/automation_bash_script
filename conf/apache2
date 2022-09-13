@@ -8,7 +8,7 @@
 export APACHE2_RC_SCRIPT_NAME='apache2'
 
 # Configuration files
-export HTTPD_CONF_ROOT='/etc/apache2'
+export HTTP_CONF_ROOT='/etc/apache2'
 
 # Log directory.
 export APACHE2_LOG_DIR='/var/log/apache2'
@@ -16,116 +16,25 @@ export APACHE2_LOG_DIR='/var/log/apache2'
 # PID file
 export APACHE2_PID='/var/run/apache2.pid'
 
+# sample config folder name
+export APACHE2_SAMPLE_DIR="${SAMPLE_DIR}/apache2"
+
 # Log files.
 export APACHE2_LOG_ACCESSLOG="${APACHE2_LOG_DIR}/access.log"
 export APACHE2_LOG_ERRORLOG="${APACHE2_LOG_DIR}/error.log"
 
-export HTTPD_CONF_DIR_AVAILABLE_CONF="${HTTPD_CONF_ROOT}/conf-available"
-export HTTPD_CONF_DIR_ENABLED_CONF="${HTTPD_CONF_ROOT}/conf-enabled"
+export HTTP_CONF_DIR_AVAILABLE_CONF="${HTTP_CONF_ROOT}/conf-available"
+export HTTP_CONF_DIR_ENABLED_CONF="${HTTP_CONF_ROOT}/conf-enabled"
 
 # Directory used to store all sites. Note: not loaded by default.
-export HTTPD_CONF_DIR_AVAILABLE_SITES="${HTTPD_CONF_ROOT}/sites-available"
+export HTTP_CONF_DIR_AVAILABLE_SITES="${HTTP_CONF_ROOT}/sites-available"
 # Directory used to store site config files which will be loaded by default.
-# Usually we just create a symbol link to file under ${HTTPD_CONF_DIR_AVAILABLE_SITES}
-export HTTPD_CONF_DIR_ENABLED_SITES="${HTTPD_CONF_ROOT}/sites-enabled"
+# Usually we just create a symbol link to file under ${HTTP_CONF_DIR_AVAILABLE_SITES}
+export HTTP_CONF_DIR_ENABLED_SITES="${HTTP_CONF_ROOT}/sites-enabled"
 
-export APACHE2_CONF="${HTTPD_CONF_ROOT}/apache2.conf"
+export APACHE2_CONF="${HTTP_CONF_ROOT}/apache2.conf"
 
+export SITE_ENABLE="a2ensite"
 
-export APACHE2_CONF_SITE_DEFAULT="${HTTPD_CONF_DIR_AVAILABLE_SITES}/000-default.conf"
-export APACHE2_CONF_SITE_DEFAULT_SSL="${HTTPD_CONF_DIR_AVAILABLE_SITES}/default-ssl.conf"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#############################################################################
-#Environment variable
-
-#export DOMAIN_NAME='example.com'
-#export DOMAIN_ALIAS_NAME='www.example.com'
-#export CERT_FILE=${DOMAIN_NAME//./_}
-
-#############################################################################
-
-#ECHO_INFO "Configure Apache web server."  
-
-# allow override none to all for /var/www
-#sudo sed -i -e '172 s/AllowOverride None/AllowOverride All/g' /etc/apache2/apache2.conf
-
-#configure X-frame-options
-#sudo echo -e "Header set X-Frame-Options: \"sameorigin\"" >> /etc/apache2/conf-available/security.conf
-
-# write the protocol for http2 
-#sudo sed -i "3 i Protocols h2 http/1.1" /etc/apache2/sites-available/default-ssl.conf
-
-# http to https redirect write at virtual host
-#sudo sed -i "4 i Redirect permanent / https://${DOMAIN_NAME}/" /etc/apache2/sites-available/000-default.conf
-
-#ssl file create at location /var/www/sslkeys
-#sudo mkdir -p /var/www/sslkeys
-
-#touch /var/www/sslkeys/${CERT_FILE}.csr /var/www/sslkeys/${CERT_FILE}.key /var/www/sslkeys/${CERT_FILE}.ca-bundle
-
-#comment the default ssl file path line at default-ssl.conf
-#sudo sed -i -e '33 s/SSLCertificateFile/#SSLCertificateFile/g' /etc/apache2/sites-available/default-ssl.conf
-#sudo sed -i -e '34 s/SSLCertificateKeyFile/#SSLCertificateKeyFile/g' /etc/apache2/sites-available/default-ssl.conf
-
-#insert the ssl certificate , private key , ca-bundle 
-#sudo sed -i "35 i SSLCertificateFile /var/www/sslkeys/${CERT_FILE}.csr" /etc/apache2/sites-available/default-ssl.conf
-#sudo sed -i "36 i SSLCertificateKeyFile /var/www/sslkeys/${CERT_FILE}.key" /etc/apache2/sites-available/default-ssl.conf
-#sudo sed -i "37 i SSLCertificateChainFile /var/www/sslkeys/${CERT_FILE}.ca-bundle" /etc/apache2/sites-available/default-ssl.conf
-
-#servername & server alias name 
-#sudo sed -i "2 i ServerName ${DOMAIN_NAME}" /etc/apache2/sites-available/000-default.conf
-#sudo sed -i "3 i ServerAlias ${DOMAIN_ALIAS_NAME}" /etc/apache2/sites-available/000-default.conf
-#sudo sed -i "5 i ServerName ${DOMAIN_NAME}" /etc/apache2/sites-available/default-ssl.conf
-#sudo sed -i "6 i ServerAlias ${DOMAIN_ALIAS_NAME}" /etc/apache2/sites-available/default-ssl.conf
-
-#add the proxy name
-#sudo sed -i '135 i <Proxy *>\nOrder deny,allow\nAllow from all' /etc/apache2/sites-available/default-ssl.conf
-#sudo sed -i '138 i </Proxy>\nSSLProxyEngine On\nProxyRequests Off\nProxyPreserveHost On' /etc/apache2/sites-available/default-ssl.conf
-#sudo sed -i '142 i ProxyPass / http://127.0.0.1:2053/\nProxyPassReverse / http://127.0.0.1:2053/' /etc/apache2/sites-available/default-ssl.conf
-#sudo sed -i '144 i ProxyPass / http://127.0.0.1:2053/v1\nProxyPassReverse / http://127.0.0.1:2053/v1' /etc/apache2/sites-available/default-ssl.conf
-#sudo sed -i '146 i ProxyPass / http://127.0.0.1:2053/images\nProxyPassReverse / http://127.0.0.1:2053/images' /etc/apache2/sites-available/default-ssl.conf
-#sudo sed -i '148 i ProxyPass / http://127.0.0.1:2053/nftImg\nProxyPassReverse / http://127.0.0.1:2053/nftImg' /etc/apache2/sites-available/default-ssl.conf
-#sudo sed -i '150 i ProxyPass / http://127.0.0.1:2053/compressedImage\nProxyPassReverse / http://127.0.0.1:2053/compressedImage' /etc/apache2/sites-available/default-ssl.conf
-
-#enable the ssl-virtualhost file
-#sudo a2ensite default-ssl.conf
-
-#enable http2 htaccess rewrite
-#sudo a2enmod http2 headers rewrite ssl proxy proxy_ssl proxy_balancer 
-
-#test the configuration are completed with or without error
-#sudo apache2ctl configtest
-
-#restart the server 
-#sudo systemctl restart apache2
+export APACHE2_CONF_SITE_DEFAULT="${HTTP_CONF_DIR_AVAILABLE_SITES}/000-default.conf"
+export APACHE2_CONF_SITE_DEFAULT_SSL="${HTTP_CONF_DIR_AVAILABLE_SITES}/default-ssl.conf"

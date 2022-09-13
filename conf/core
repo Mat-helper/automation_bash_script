@@ -198,6 +198,31 @@ check_status_before_run()
     fi
 }
 
+# All Linux/BSD distributions: for one service:
+# Linux: for multiple services:
+#   service_control [enable|disable|start|stop|restart] <service1> <service2> <service3> ...
+
+service_control()
+{
+    action="$1"     # enable, disable, start, stop, restart
+    shift 1
+    service="$1"    # first service name
+    services="$@"   # all service names
+
+    if [ X"${KERNEL_NAME}" == X'LINUX' ]; then
+        ECHO_DEBUG "Service control: ${action} ${services}."
+
+        if [ X"${USE_SYSTEMD}" == X'YES' ]; then
+            systemctl ${action} ${services} >> ${INSTALL_LOG} 2>&1
+        else
+            for srv in ${services}; do
+                rc_script="${DIR_RC_SCRIPTS}/$srv"
+                ${rc_script} $action >> ${INSTALL_LOG} 2>&1
+            done
+        fi
+    fi
+}
+
 generate_password_hash()
 {
     _scheme="${1}"
@@ -242,6 +267,17 @@ ask_confirm()
         Y|y ) : ;;
         N|n|* ) echo "Exit." && exit ;;
     esac
+}
+
+add_sys_user_group()
+{
+    _user="$1"
+
+    ECHO_DEBUG "Create system account: ${_user}."
+
+    if [ X"${DISTRO}" == X'UBUNTU' ]; then
+        adduser --disabled-password --gecos GECOS ${_user}
+    fi
 }
 
 update_sysctl_param()

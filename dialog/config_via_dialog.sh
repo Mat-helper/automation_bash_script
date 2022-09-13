@@ -101,7 +101,7 @@ NOTES:
 
 WARNING:
         * Make sure to use the free SSL for temporary don't go live with free ssl." \
-20 76 3 \
+20 80 6 \
 "SSL purchased" "If ssl was purchased enter the ssl code here." "on"
 "Lets encrypt" "Lets Encrypt is a certificate authority." "off" \
 "ssl not purchased" "I don't need any web applications on this server." "off" \
@@ -175,20 +175,10 @@ if [ X"${DB_ORIG}" == X'MONGO' ]; then
 
 echo "export DB_SERVER='${DB_SERVER}'" >> ${SERVER_CONFIG_FILE}
 
-# For Mongo database management.
-
-export MONGO_DB_ADMIN_USER="$(${RANDOM_STRING})"
-echo "export MONGO_DB_ADMIN_USER='${MONGO_DB_ADMIN_USER}'" >> ${SERVER_CONFIG_FILE}
-
-export MONGO_DB_ADMIN_PASSWD="$(${RANDOM_STRING})"
-echo "export MONGO_DB_ADMIN_PASSWD='${MONGO_DB_ADMIN_PASSWD}'" >> ${SERVER_CONFIG_FILE}
-
 else 
     export DISABLE_DB_SERVER='YES'
     echo "export DISABLE_DB_SERVER=YES" >> ${SERVER_CONFIG_FILE}
 fi
-
-
 
 # --------------------------------------------------
 # --------------------- Backend --------------------
@@ -225,7 +215,6 @@ else
 fi
 
 
-
 # get Public IP address of this server
 . ${DIALOG_DIR}/Ip_config.sh
 
@@ -239,18 +228,18 @@ echo "#EOF" >> ${SERVER_CONFIG_FILE}
 # Ending message.
 #
 cat <<EOF
-*************************************************************************
-****************************** WARNING **********************************
-*************************************************************************
-*                                                                       *
-* Below file contains sensitive infomation (username/password), please  *
-* do remember to *MOVE* it to a safe place after installation.          *
-*                                                                       *
-    * ${SERVER_CONFIG_FILE}                                           
-*                                                                       *
-*************************************************************************
-********************** Review your settings *****************************
-*************************************************************************
+********************************************************************************************
+**************************************** WARNING *******************************************
+********************************************************************************************
+*                                                                                          *
+* Below file contains sensitive infomation (username/password), please                     *
+* do remember to *MOVE* it to a safe place after installation.                             *
+*                                                                                          *
+*   * ${SERVER_CONFIG_FILE}                                                                *   
+*                                                                                          *
+********************************************************************************************
+********************************** Review your settings ************************************
+********************************************************************************************
 
 * Project Name :                        ${PROJECT_NAME}
 * Database Server :                     ${DB_ORIG_CASE_SENSITIVE}

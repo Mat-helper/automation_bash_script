@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+export SSL_DIR='/var/www/sslkeys'
+
+export SSL_CERT_FILE="${SSL_DIR}/${DOMAIN_NAME//./_}.csr"
+export SSL_KEY_FILE="${SSL_DIR}/${DOMAIN_NAME//./_}.key"
+export SSL_FULLCHAIN_FILE="${SSL_DIR}/${DOMAIN_NAME//./_}.ca-bundle"

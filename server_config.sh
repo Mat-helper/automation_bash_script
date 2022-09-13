@@ -3,7 +3,6 @@
 # ------------------------------
 # Define some global variables.
 # ------------------------------
-
 tmprootdir="$(dirname $0)"
 echo ${tmprootdir} | grep '^/' >/dev/null 2>&1
 if [ X"$?" == X"0" ]; then
@@ -19,10 +18,8 @@ export FUNCTIONS_DIR="${ROOTDIR}/functions"
 export DIALOG_DIR="${ROOTDIR}/dialog"
 export PKG_DIR="${ROOTDIR}/pkgs"
 export SAMPLE_DIR="${ROOTDIR}/samples"
-#export PATCH_DIR="${ROOTDIR}/patches"
 export TOOLS_DIR="${ROOTDIR}/tools"
 export RUNTIME_DIR="${ROOTDIR}/runtime"
-
 
 [[ -d ${RUNTIME_DIR} ]] || mkdir -p ${RUNTIME_DIR}
 
@@ -50,8 +47,6 @@ chmod go+rx /dev/null /dev/*random &>/dev/null
 
 check_env
 
-#. ${PKG_DIR}/installation
-
 # Define paths of some directories
 # Directory used to store daily backup files
 export BACKUP_DIR="${ROOTDIR}/backup"
@@ -73,9 +68,13 @@ EOF
 
 # Import global variables in specified order.
 . ${CONFIG_DIR}/web_server
-#
-#. ${CONFIG_DIR}/apache2
-#. ${CONFIG_DIR}/mongo
+. ${CONFIG_DIR}/ssl
+. ${CONFIG_DIR}/mongo
+. ${CONFIG_DIR}/node
+
+# ************************************************************************
+# *************************** Script Main ********************************
+# ************************************************************************
 
 # Install all required packages.
 check_status_before_run install_all || (ECHO_ERROR "Package installation error, please check the output log.\n\n" && exit 255)
@@ -88,19 +87,21 @@ EOF
 
 # Import functions in specified order.
 . ${FUNCTIONS_DIR}/packages.sh
-#. ${FUNCTIONS_DIR}/system_accounts.sh
+. ${FUNCTIONS_DIR}/system_accounts.sh
 . ${FUNCTIONS_DIR}/web_server.sh
+. ${FUNCTIONS_DIR}/ssl_configuration.sh
+
+# Switch backend
+. ${FUNCTIONS_DIR}/backend.sh
+. ${FUNCTIONS_DIR}/db_server.sh
+. ${FUNCTIONS_DIR}/cleanup.sh
+
 
 #check_status_before_run generate_ssl_keys
-#check_status_before_run add_required_users
-#check_status_before_run backend_install
-#check_status_before_run postfix_setup
-#check_status_before_run dovecot_setup
-#check_status_before_run web_server_config
-#check_status_before_run mlmmj_config
-#check_status_before_run mlmmjadmin_config
-#check_status_before_run clamav_config
-#check_status_before_run amavisd_config
-#check_status_before_run sa_config
+check_status_before_run add_required_users
+check_status_before_run backend_install
+check_status_before_run web_server_config
+check_status_before_run db_server_config
+
 #optional_components
-#check_status_before_run cleanup
+check_status_before_run cleanup

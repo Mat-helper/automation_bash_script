@@ -15,10 +15,10 @@ export DAY="$(${CMD_DATE} +%d)"
 export TIMESTAMP="${YEAR}-${MONTH}-${DAY}-${TIME}"
 
 export DB_BACKUP_PATH='/backup/mongo'
-export MONGO_PORT="${MONGO_PORT}"
-export MONGO_USER="${MONGO_USER}"
-export MONGO_PASSWD="${MONGO_PASSWD}"
-export DATABASE_NAMES="${DATABASE_NAME}"
+export MONGO_PORT="PH_MONGO_PORT"
+export MONGO_USER="PH_MONGO_USER"
+export MONGO_PASSWD="PH_MONGO_PASSWD"
+export DATABASE_NAMES="PH_DATABASE_NAME"
 
 # Pre-defined backup status
 export BACKUP_SUCCESS='YES'
@@ -70,18 +70,6 @@ if [[ X"${KERNEL}" == X'Linux' ]]; then
     shift_year=$(date --date="${KEEP_DAYS} days ago" "+%Y")
     shift_month=$(date --date="${KEEP_DAYS} days ago" "+%m")
     shift_day=$(date --date="${KEEP_DAYS} days ago" "+%d")
-elif [[ X"${KERNEL}" == X'FreeBSD' ]]; then
-    shift_year=$(date -j -v-${KEEP_DAYS}d "+%Y")
-    shift_month=$(date -j -v-${KEEP_DAYS}d "+%m")
-    shift_day=$(date -j -v-${KEEP_DAYS}d "+%d")
-elif [[ X"${KERNEL}" == X'OpenBSD' ]]; then
-    epoch_seconds_now="$(date +%s)"
-    epoch_shift="$((${KEEP_DAYS} * 86400))"
-    epoch_seconds_old="$((epoch_seconds_now - epoch_shift))"
-
-    shift_year=$(date -r ${epoch_seconds_old} "+%Y")
-    shift_month=$(date -r ${epoch_seconds_old} "+%m")
-    shift_day=$(date -r ${epoch_seconds_old} "+%d")
 else
     export REMOVE_OLD_BACKUP='NO' 
 fi

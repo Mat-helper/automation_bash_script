@@ -19,7 +19,6 @@ export CONFIG_VIA_DIALOG="${DIALOG_DIR}/config_via_dialog.sh"
 # Note: config file will be sourced in file 'conf/core', function 'check_env()'.
 export SERVER_CONFIG_FILE="${ROOTDIR}/config"
 export TIP_FILE="${ROOTDIR}/server.tips"
-export DB_TIP_FILE="${ROOTDIR}/DB_details.tips"
 export Developer_TIP_FILE="${ROOTDIR}/For_developers.tips"
 export STATUS_FILE="${RUNTIME_DIR}/install.status"
 export INSTALL_LOG="${RUNTIME_DIR}/install.log"
@@ -132,6 +131,10 @@ fi
 # root user/group name. Note: not all OSes have group 'root'.
 export SYS_USER_ROOT='root'
 export SYS_GROUP_ROOT='root'
+export SYS_USER_WEB='www-data'
+export SYS_GROUP_WEB='www-data'
+
+export PRIVILEGES='/var/www,/bin/zip,/bin/unzip,/bin/pm2/,/bin/nano,/bin/kill'
 
 # Check processor type.
 if [ X"${DISTRO}" == X'DEBIAN' ]; then
@@ -182,7 +185,7 @@ esac
     export FIREWALL_RULE_CONF="${NFTABLES_CONF}"
 
     # Directory used to store SSL/TLS key/cert file.
-    export SSL_FILE_DIR="/etc/ssl"
+    export SSL_FILE_DIR="/var/www/sslkeys"
 
     # `python3` is a symbol link to `python3X`.
     export UWSGI_PY3_PLUGIN_NAME='python3'

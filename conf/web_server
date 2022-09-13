@@ -11,10 +11,12 @@ export HTTPS_PORT="${HTTPS_PORT:=443}"
 
 if [ X"${DISTRO}" == X'UBUNTU' ]; then
     # Web data.
-    export HTTPD_DOCUMENTROOT='/var/www/html'
+    export HTTP_DOCUMENTROOT='/var/www/html'
 
 # Daemon user.
-export HTTPD_USER='www-data'
-export HTTPD_GROUP='www-data'
+export HTTP_USER='www-data'
+export HTTP_GROUP='www-data'
 
 fi
+
+[ X"${WEB_SERVER}" == X'APACHE2' ] && . ${CONFIG_DIR}/apache2
