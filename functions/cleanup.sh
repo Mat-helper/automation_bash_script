@@ -13,3 +13,11 @@ cleanup_set_cron_file_permission()
     echo 'export status_cleanup_set_cron_file_permission="DONE"' >> ${STATUS_FILE}
 }
 
+
+cleanup
+{
+    check_status_before_run cleanup_set_cron_file_permission
+
+    echo 'export status_cleanup="DONE"' >> ${STATUS_FILE}
+ 
+}

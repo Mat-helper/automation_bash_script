@@ -64,7 +64,7 @@ fi
             ECHO_ERROR "If you're not sure what the problem is, try to get help with admin"
             exit 255
         fi
-        echo 'export status_install_all="DONE"' >> ${STATUS_FILE}
+       
     }
  cat >> ${TIP_FILE} <<EOF
 * Enabled services: ${ENABLED_SERVICES}
@@ -77,4 +77,7 @@ EOF
     install_all_pkgs
 
    # check_status_before_run after_package_installation
+
+    echo 'export status_install_all="DONE"' >> ${STATUS_FILE}
+    
 }

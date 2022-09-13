@@ -15,11 +15,9 @@ add_user_develop()
     visudo -c
 
     echo 'export status_add_user_develop="DONE"' >> ${STATUS_FILE}
-}
 
-
-add_pem_file()
-{
+    add_pem_file()
+    {
     ECHO_INFO "Generate the pem file to login user."
 
     [[ -d ${RUNTIME_DIR}/.ssh ]] || mkdir -p ${RUNTIME_DIR}/.ssh
@@ -58,6 +56,8 @@ cat >> ${TIP_FILE} <<EOF
         - ${ROOTDIR}/${SYSTEM_ACCOUNT_NAME}.pem
 EOF
 
+    }
+
 }
 
 add_required_users()
@@ -65,6 +65,5 @@ add_required_users()
     ECHO_INFO "Create required system accounts."
 
     check_status_before_run add_user_develop
-    check_status_before_run add_pem_file
 
 }   
