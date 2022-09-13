@@ -14,7 +14,7 @@ cleanup_set_cron_file_permission()
 }
 
 
-cleanup
+cleanup()
 {
     check_status_before_run cleanup_set_cron_file_permission
 

@@ -72,6 +72,18 @@ EOF
 . ${CONFIG_DIR}/mongo
 . ${CONFIG_DIR}/node
 
+
+# Import functions in specified order.
+. ${FUNCTIONS_DIR}/packages.sh
+. ${FUNCTIONS_DIR}/system_accounts.sh
+. ${FUNCTIONS_DIR}/web_server.sh
+. ${FUNCTIONS_DIR}/ssl_configuration.sh
+
+# Switch backend
+. ${FUNCTIONS_DIR}/backend.sh
+. ${FUNCTIONS_DIR}/db_server.sh
+. ${FUNCTIONS_DIR}/cleanup.sh
+
 # ************************************************************************
 # *************************** Script Main ********************************
 # ************************************************************************
@@ -85,19 +97,7 @@ cat <<EOF
 ********************************************************************
 EOF
 
-# Import functions in specified order.
-. ${FUNCTIONS_DIR}/packages.sh
-. ${FUNCTIONS_DIR}/system_accounts.sh
-. ${FUNCTIONS_DIR}/web_server.sh
-. ${FUNCTIONS_DIR}/ssl_configuration.sh
-
-# Switch backend
-. ${FUNCTIONS_DIR}/backend.sh
-. ${FUNCTIONS_DIR}/db_server.sh
-. ${FUNCTIONS_DIR}/cleanup.sh
-
-
-#check_status_before_run generate_ssl_keys
+check_status_before_run generate_ssl_keys
 check_status_before_run add_required_users
 check_status_before_run backend_install
 check_status_before_run web_server_config
