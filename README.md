@@ -10,3 +10,7 @@
 
 # date 25-aug-2022
 # 1. add mongo.conf file configuration
+
+# date 19-SEP-2022
+# 1. get the variable of domain, subdomain, IP address, system username.
+# 2. write the functionality separately for packages, apache2, mongo, backend, system user.
