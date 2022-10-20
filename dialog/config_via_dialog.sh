@@ -84,6 +84,7 @@ echo "export WEB_SERVER='${WEB_SERVER}'" >>${SERVER_CONFIG_FILE}
 # domain configuration.
 . ${DIALOG_DIR}/domain_config.sh
 
+
 else
     export DISABLE_WEB_SERVER='YES'
     echo "export DISABLE_WEB_SERVER='YES'" >>${SERVER_CONFIG_FILE}
