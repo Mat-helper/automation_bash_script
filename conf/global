@@ -84,8 +84,6 @@ export UNSUPPORTED_RELEASE='NO'
 if [ X"${KERNEL_NAME}" == X'LINUX' ]; then
     export DISTRO_VERSION=$(awk -F'"' '/^VERSION_ID=/ {print $2}' /etc/os-release)
 
-    # Debian:
-    #   - 11: bullseye
     # Ubuntu:
     #   - 18.04: Bionic Beaver
     #   - 20.04: focal
@@ -134,10 +132,10 @@ export SYS_GROUP_ROOT='root'
 export SYS_USER_WEB='www-data'
 export SYS_GROUP_WEB='www-data'
 
-export PRIVILEGES='/var/www,/bin/zip,/bin/unzip,/bin/pm2/,/bin/nano,/bin/kill,/bin/mkdir'
+export PRIVILEGES='/bin/zip,/bin/unzip,/bin/pm2,/bin/nano,/bin/kill,/bin/mkdir,/usr/bin/lsof,/usr/bin/npm,/usr/bin/node,/bin/systemctl,/usr/bin/vim,/usr/bin/vi,/bin/tar'
 
 # Check processor type.
-if [ X"${DISTRO}" == X'DEBIAN' ]; then
+if [ X"${DISTRO}" == X'UBUNTU' ]; then
     arch="$(uname -m)"
 else
     arch="$(uname -p)"
@@ -153,8 +151,7 @@ esac
 # remove_pkg: function used to remove packages without confirm.
 # LIST_ALL_PKGS: command used to list all installed packages.
 # LIST_FILES_IN_PKG: command used to list files installed by special package.
-  # Ubuntu & Debian.
-    export DEBIAN_FRONTEND='noninteractive'
+  # Ubuntu .
     export SHELL_NOLOGIN='/usr/sbin/nologin'
 
     # Package management.
@@ -166,8 +163,8 @@ esac
     fi
 
     # Package management.
-    export install_pkg='install_pkg_debian'
-    export remove_pkg='remove_pkg_debian'
+    export install_pkg='install_pkg_ubuntu'
+    export remove_pkg='remove_pkg_ubuntu'
     export LIST_ALL_PKGS="dpkg -l |awk '{print $2}'"
     export LIST_FILES_IN_PKG='dpkg -L'
 
@@ -177,7 +174,7 @@ esac
     # Crontab related.
     export CRON_SPOOL_DIR='/var/spool/cron/crontabs'
 
-    # Directory /etc/default/ on Debian/Ubuntu.
+    # Directory /etc/default/ on Ubuntu.
     export ETC_SYSCONFIG_DIR='/etc/default'
 
     export USE_NFTABLES='YES'

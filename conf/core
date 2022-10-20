@@ -235,8 +235,8 @@ generate_password_hash()
     doveadm pw -s "${_scheme}" -p "${_password}"
 }
 
-# Install/Remove binary packages on Debian/Ubuntu.
-install_pkg_debian()
+# Install/Remove binary packages on Ubuntu.
+install_pkg_ubuntu()
 {
     ECHO_INFO "Installing package(s): $@"
     ${APTGET} install -y $@
@@ -247,7 +247,7 @@ install_pkg_debian()
     fi
 }
 
-remove_pkg_debian()
+remove_pkg_ubuntu()
 {
     ECHO_INFO "Removing package(s): $@"
     ${APTGET} purge -y $@

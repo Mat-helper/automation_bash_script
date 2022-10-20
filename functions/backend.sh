@@ -9,6 +9,10 @@ backend_install()
 
     if [ X"${BACKEND}" == X'NODE' ]; then
 
+        ECHO_INFO "Installing npm"
+
+        sudo apt-get install npm -y
+
         ECHO_INFO "Installing pm2."
         
         npm install ${PROCESS_MANAGEMENT} -g
