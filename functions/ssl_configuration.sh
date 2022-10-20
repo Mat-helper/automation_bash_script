@@ -47,9 +47,8 @@ SSL keys were Located:
 EOF
         echo 'export status_ssl_cert_file="DONE"'  >> ${STATUS_FILE}
 
-fi
 
-if [ X"${SSL_CONFIGURATION}" == X'Lets encrypt' ]; then
+elif [ X"${SSL_CONFIGURATION}" == X'Lets encrypt' ]; then
 
     sudo certbot --apache -d ${SUBDOMAIN_NAME}.${DOMAIN_NAME}
 
