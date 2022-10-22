@@ -83,6 +83,7 @@ echo "export WEB_SERVER='${WEB_SERVER}'" >>${SERVER_CONFIG_FILE}
 
 # domain configuration.
 . ${DIALOG_DIR}/domain_config.sh
+. ${DIALOG_DIR}/ssl_config.sh
 
 
 else
