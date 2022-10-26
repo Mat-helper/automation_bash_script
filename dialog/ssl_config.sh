@@ -7,9 +7,9 @@ while : ; do
         --radiolist "Choose a option to configure the SSL.
 
 TIP: Use SPACE key to select item." \
-25 85 3 \
+25 90 4 \
 "SSLpurchased" "If ssl was purchased enter the ssl code here." "on" \
-"Letsencrypt" "Just create the ssl file" "off"
+"Letsencrypt" "Just create the ssl file" "off" \
 "notpurchased" "going to do later on." "off" \
 2>${RUNTIME_DIR}/.ssl_configuration
 
@@ -31,6 +31,7 @@ elif [ X"${ssl_configuration}" == X'Letsencrypt' ]; then
     export ssl_configuration='Letsencrypt'
 
 echo "export ssl_configuration='${ssl_configuration}'" >>${SERVER_CONFIG_FILE}
+
 else
     export DISABLE_SSL_CONFIUGRATION='YES'
     echo "export DISABLE_SSL_CONFIUGRATION='YES'" >>${SERVER_CONFIG_FILE}
@@ -42,6 +43,6 @@ You entered details regarding the domain :
 
     * Domain name :          ${DOMAIN_NAME}
     * Subdomain name :       ${SUBDOMAIN_NAME}
-    * ssl_status :           ${ssl_configuration}
+    * ssl_status :           ${ssl_configuration_case_sensitive}
 
 EOF
