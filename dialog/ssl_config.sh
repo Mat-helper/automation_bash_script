@@ -8,8 +8,8 @@ while : ; do
 
 TIP: Use SPACE key to select item." \
 25 90 4 \
-"SSLPURCHASED" "If ssl was purchased enter the ssl code here." "on" \
-"LETSENCRYPT" "Just create the ssl file" "off" \
+"SSLpurchased" "If ssl was purchased enter the ssl code here." "on" \
+"Letsencrypt" "Just create the ssl file" "off" \
 "notpurchased" "going to do later on." "off" \
 2>${RUNTIME_DIR}/.ssl_configuration
 
