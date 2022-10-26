@@ -24,9 +24,7 @@ export PKG_WGET='wget'
 # command: perl.
 export BIN_PERL='perl'
 export PKG_PERL='perl'
-# command: dialog
-export BIN_DIALOG='dialog'
-export PKG_DIALOG='dialog'
+
 
 
 export PKG_APT_TRANSPORT_HTTPS="apt-transport-https"
