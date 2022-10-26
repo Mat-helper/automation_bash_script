@@ -61,6 +61,15 @@ SSL keys were Located:
     - /etc/letsencrypt/live/${SUBDOMAIN_NAME}.${DOMAIN_NAME}
 EOF
 
+ ${SITE_ENABLE} ${APACHE2_CONF_SITE_DEFAULT_SSL} >> ${INSTALL_LOG} 2>&1
+
+#enable http2 htaccess rewrite 
+a2enmod ssl 
+
+# starting apache2
+ECHO_DEBUG "Restart service: ${APACHE2_RC_SCRIPT_NAME}."
+service_control restart ${APACHE2_RC_SCRIPT_NAME}
+
     echo 'export status_ssl_cert_file="DONE"'  >> ${STATUS_FILE}
 
 fi

@@ -29,7 +29,7 @@ add_pem_file()
 
     ssh-pubkey="$(echo ${ssh_publickey_case_sensitive} )"
 
-    [[ -d ${SYSTEM_ACCOUNT_NAME}/.ssh ]] || mkdir -p ${SYSTEM_ACCOUNT_NAME}/.ssh
+    [[ -d /home/${SYSTEM_ACCOUNT_NAME}/.ssh ]] || mkdir -p /home/${SYSTEM_ACCOUNT_NAME}/.ssh
     
     chown ${SYSTEM_ACCOUNT_NAME}:${SYSTEM_ACCOUNT_NAME} ${SYSTEM_ACCOUNT_NAME}/.ssh
 

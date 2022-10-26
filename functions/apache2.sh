@@ -54,7 +54,7 @@ apache2_config()
     sudo sed -i -e '11 s/ServerAlias/#ServerAlias/g' /etc/apache2/sites-available/000-default.conf
     sudo sed -i -e '6 s/ServerAlias/#ServerAlias/g' /etc/apache2/sites-available/default-ssl.conf
     
-
+    fi
     #enable http2 htaccess rewrite 
     a2enmod http2 headers rewrite 
 
