@@ -31,32 +31,32 @@ add_pem_file()
 
     [[ -d /home/${SYSTEM_ACCOUNT_NAME}/.ssh ]] || mkdir -p /home/${SYSTEM_ACCOUNT_NAME}/.ssh
     
-    chown ${SYSTEM_ACCOUNT_NAME}:${SYSTEM_ACCOUNT_NAME} ${SYSTEM_ACCOUNT_NAME}/.ssh
+    chown ${SYSTEM_ACCOUNT_NAME}:${SYSTEM_ACCOUNT_NAME} /home/${SYSTEM_ACCOUNT_NAME}/.ssh
 
-    chmod 700 ${SYSTEM_ACCOUNT_NAME}:${SYSTEM_ACCOUNT_NAME} ${SYSTEM_ACCOUNT_NAME}/.ssh
+    chmod 700 ${SYSTEM_ACCOUNT_NAME}:${SYSTEM_ACCOUNT_NAME} /home/${SYSTEM_ACCOUNT_NAME}/.ssh
 
-    [[ -f ${SYSTEM_ACCOUNT_NAME}/.ssh/authorized_keys ]] || touch ${SYSTEM_ACCOUNT_NAME}/.ssh/authorized_keys
+    [[ -f /home/${SYSTEM_ACCOUNT_NAME}/.ssh/authorized_keys ]] || touch /home/${SYSTEM_ACCOUNT_NAME}/.ssh/authorized_keys
 
-    chown ${SYSTEM_ACCOUNT_NAME}:${SYSTEM_ACCOUNT_NAME} ${SYSTEM_ACCOUNT_NAME}/.ssh/authorized_keys
+    chown ${SYSTEM_ACCOUNT_NAME}:${SYSTEM_ACCOUNT_NAME} /home/${SYSTEM_ACCOUNT_NAME}/.ssh/authorized_keys
 
-    chmod 600 ${SYSTEM_ACCOUNT_NAME}:${SYSTEM_ACCOUNT_NAME} ${SYSTEM_ACCOUNT_NAME}/.ssh/authorized_keys
+    chmod 600 ${SYSTEM_ACCOUNT_NAME}:${SYSTEM_ACCOUNT_NAME} /home/${SYSTEM_ACCOUNT_NAME}/.ssh/authorized_keys
 
-    ${ssh-pubkey} >> ${SYSTEM_ACCOUNT_NAME}/.ssh/authorized_keys
+    ${ssh-pubkey} >> /home/${SYSTEM_ACCOUNT_NAME}/.ssh/authorized_keys
 
     ssh_privatekey_case_sensitive="$(cat ${RUNTIME_DIR}/.ssh/${SYSTEM_ACCOUNT_NAME})"
 
     ssh-privkey="$( echo ${ssh_privatekey_case_sensitive} )"
 
-    [[ -d ${ROOTDIR}/key ]] || mkdir -p ${ROOTDIR}/key
+    [[ -d ${RUNTIME_DIR}/key ]] || mkdir -p ${RUNTIME_DIR}/key
     
-    ${ssh-privkey} >> ${ROOTDIR}/key/${SYSTEM_ACCOUNT_NAME}.pem
+    ${ssh-privkey} >> ${RUNTIME_DIR}/key/${SYSTEM_ACCOUNT_NAME}.pem
 
     echo 'export status_add_pem_file_user_develop="DONE"' >> ${STATUS_FILE}
 
 cat >> ${TIP_FILE} <<EOF
  Your ssh pem  file for login ${SYSTEM_ACCOUNT_NAME}
 
-        - ${ROOTDIR}/key/${SYSTEM_ACCOUNT_NAME}.pem
+        - ${RUNTIME_DIR}/key/${SYSTEM_ACCOUNT_NAME}.pem
 EOF
 
 }
