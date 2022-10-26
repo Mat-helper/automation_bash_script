@@ -49,7 +49,7 @@ check_env
 
 # Define paths of some directories
 # Directory used to store daily backup files
-export BACKUP_DIR="${ROOTDIR}/backup"
+export BACKUP_DIR="/etc/backup"
 
 cache_clear_script="${BACKUP_DIR}/${BUFFER_CACHE_CLEAR}"
 
@@ -97,10 +97,10 @@ cat <<EOF
 ********************************************************************
 EOF
 
-check_status_before_run generate_ssl_keys
 check_status_before_run add_required_users
-check_status_before_run backend_install
 check_status_before_run web_server_config
+check_status_before_run generate_ssl_keys
+check_status_before_run backend_install
 check_status_before_run db_server_config
 
 #optional_components
