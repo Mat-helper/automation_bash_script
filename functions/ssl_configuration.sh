@@ -2,7 +2,7 @@
 
 generate_ssl_keys ()
 {
-    if [ X"${ssl_configuration}" == X'SSLpurchased' ]; then
+    if [ X"${ssl_configuration}" == X'SSLPURCHASED' ]; then
 
         [[ -d  ${SSL_DIR} ]] || mkdir -p ${SSL_DIR}
 
@@ -48,7 +48,7 @@ EOF
         echo 'export status_ssl_cert_file="DONE"'  >> ${STATUS_FILE}
 
 
-elif [ X"${ssl_configuration}" == X'Letsencrypt' ]; then
+elif [ X"${ssl_configuration}" == X'LETSENCRYPT' ]; then
 
     sudo certbot --apache -d ${SUBDOMAIN_NAME}.${DOMAIN_NAME}
 
