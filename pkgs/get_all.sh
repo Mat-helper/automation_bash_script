@@ -62,6 +62,13 @@ prepare_dirs
 
 # Check required commands, and install packages which offer the commands.
 if [ X"${DISTRO}" == X'UBUNTU' ]; then
+    
+    check_pkg ${BIN_PERL} ${PKG_PERL}
+    check_pkg ${BIN_WGET} ${PKG_WGET}
+    check_pkg ${BIN_CURL} ${PKGcw_CURL}
+    check_pkg ${BIN_ZIP} ${PKG_ZIP}
+    check_pkg ${BIN_UNZIP} ${PKG_UNZIP}
+
     [[ -e /usr/sbin/update-ca-certificates ]] || export MISSING_PKGS="${MISSING_PKGS} ca-certificates"
     [[ -e /usr/lib/apt/methods/https ]] || export MISSING_PKGS="${MISSING_PKGS} ${PKG_APT_TRANSPORT_HTTPS}"
     [[ -e /usr/bin/gpg2 ]] || export MISSING_PKGS="${MISSING_PKGS} gnupg2"
@@ -72,17 +79,9 @@ if [ X"${DISTRO}" == X'UBUNTU' ]; then
         # Some required packages are in `universe` and `multiverse` apt repos.
         [ -x /usr/bin/apt-add-repository ] || export MISSING_PKGS="${MISSING_PKGS} software-properties-common"
     fi
-
-    check_pkg ${BIN_PERL} ${PKG_PERL}
-    check_pkg ${BIN_WGET} ${PKG_WGET}
-    check_pkg ${BIN_CURL} ${PKG_CURL}
-    check_pkg ${BIN_ZIP} ${PKG_ZIP}
-    check_pkg ${BIN_UNZIP} ${PKG_UNZIP}
-    check_pkg ${BIN_DIALOG} ${PKG_DIALOG}
-
 fi
 
-
+  check_pkg ${BIN_DIALOG} ${PKG_DIALOG}
 install_missing_pkg
 
  # Force update.
