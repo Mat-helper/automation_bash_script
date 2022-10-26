@@ -41,15 +41,18 @@ apache2_config()
     
 
     if [ X"${SUBDOMAIN_NAME}" == X'www']; then
+
+    export FLQN_NAME="${SUBDOMAIN_NAME}.${DOMAIN_NAME}"
      
     perl -pi -e 's#PH_DOMAIN_NAME#$ENV{DOMAIN_NAME}#g' ${HTTP_CONF_DIR_AVAILABLE_SITES}/*.conf
     perl -pi -e 's#PH_SUBDOMAIN_NAME#$ENV{SUBDOMAIN_NAME}#g' ${HTTP_CONF_DIR_AVAILABLE_SITES}/*.conf
-
+    perl -pi -e 's#PH_FLQN_NAME#$ENV{FLQN_NAME}#g' ${HTTP_CONF_DIR_AVAILABLE_SITES}/*.conf
     else 
 
     export FLQN_NAME="${SUBDOMAIN_NAME}.${DOMAIN_NAME}"
 
     perl -pi -e 's#PH_DOMAIN_NAME#$ENV{FLQN_NAME}#g' ${HTTP_CONF_DIR_AVAILABLE_SITES}/*.conf
+    perl -pi -e 's#PH_FLQN_NAME#$ENV{FLQN_NAME}#g' ${HTTP_CONF_DIR_AVAILABLE_SITES}/*.conf
 
     sudo sed -i -e '11 s/ServerAlias/#ServerAlias/g' /etc/apache2/sites-available/000-default.conf
     sudo sed -i -e '6 s/ServerAlias/#ServerAlias/g' /etc/apache2/sites-available/default-ssl.conf

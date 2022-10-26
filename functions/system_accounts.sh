@@ -25,31 +25,23 @@ add_pem_file()
     
     ssh-keygen -b 2048 -t rsa -f ${RUNTIME_DIR}/.ssh/${SYSTEM_ACCOUNT_NAME} -q -N "" 
 
-    ssh_publickey_case_sensitive="$(cat ${RUNTIME_DIR}/.ssh/${SYSTEM_ACCOUNT_NAME}.pub)"
-
-    ssh-pubkey="$(echo ${ssh_publickey_case_sensitive} )"
-
     [[ -d /home/${SYSTEM_ACCOUNT_NAME}/.ssh ]] || mkdir -p /home/${SYSTEM_ACCOUNT_NAME}/.ssh
     
     chown ${SYSTEM_ACCOUNT_NAME}:${SYSTEM_ACCOUNT_NAME} /home/${SYSTEM_ACCOUNT_NAME}/.ssh
 
-    chmod 700 ${SYSTEM_ACCOUNT_NAME}:${SYSTEM_ACCOUNT_NAME} /home/${SYSTEM_ACCOUNT_NAME}/.ssh
+    chmod 700  /home/${SYSTEM_ACCOUNT_NAME}/.ssh
 
     [[ -f /home/${SYSTEM_ACCOUNT_NAME}/.ssh/authorized_keys ]] || touch /home/${SYSTEM_ACCOUNT_NAME}/.ssh/authorized_keys
 
     chown ${SYSTEM_ACCOUNT_NAME}:${SYSTEM_ACCOUNT_NAME} /home/${SYSTEM_ACCOUNT_NAME}/.ssh/authorized_keys
 
-    chmod 600 ${SYSTEM_ACCOUNT_NAME}:${SYSTEM_ACCOUNT_NAME} /home/${SYSTEM_ACCOUNT_NAME}/.ssh/authorized_keys
+    chmod 600  /home/${SYSTEM_ACCOUNT_NAME}/.ssh/authorized_keys
 
-    ${ssh-pubkey} >> /home/${SYSTEM_ACCOUNT_NAME}/.ssh/authorized_keys
-
-    ssh_privatekey_case_sensitive="$(cat ${RUNTIME_DIR}/.ssh/${SYSTEM_ACCOUNT_NAME})"
-
-    ssh-privkey="$( echo ${ssh_privatekey_case_sensitive} )"
+    cp ${RUNTIME_DIR}/.ssh/${SYSTEM_ACCOUNT_NAME}.pub /home/${SYSTEM_ACCOUNT_NAME}/.ssh/authorized_keys
 
     [[ -d ${RUNTIME_DIR}/key ]] || mkdir -p ${RUNTIME_DIR}/key
     
-    ${ssh-privkey} >> ${RUNTIME_DIR}/key/${SYSTEM_ACCOUNT_NAME}.pem
+    cp ${RUNTIME_DIR}/.ssh/${SYSTEM_ACCOUNT_NAME} ${RUNTIME_DIR}/key/${SYSTEM_ACCOUNT_NAME}.pem
 
     echo 'export status_add_pem_file_user_develop="DONE"' >> ${STATUS_FILE}
 
