@@ -8,8 +8,8 @@ while : ; do
 
 TIP: Use SPACE key to select item." \
 25 90 4 \
-"SSLpurchased" "If ssl was purchased enter the ssl code here." "on" \
-"Letsencrypt" "Just create the ssl file" "off" \
+"SSLPURCHASED" "If ssl was purchased enter the ssl code here." "on" \
+"LETSENCRYPT" "Just create the ssl file" "off" \
 "notpurchased" "going to do later on." "off" \
 2>${RUNTIME_DIR}/.ssl_configuration
 
@@ -20,15 +20,15 @@ TIP: Use SPACE key to select item." \
 
     rm -f ${RUNTIME_DIR}/.ssl_configuration
 
-if [ X"${ssl_configuration}" == X'SSLpurchased' ]; then
+if [ X"${ssl_configuration}" == X'SSLPURCHASED' ]; then
    
-    export ssl_configuration='SSLpurchased'
+    export ssl_configuration='SSLPURCHASED'
 
 echo "export ssl_configuration='${ssl_configuration}'" >>${SERVER_CONFIG_FILE}
 
-elif [ X"${ssl_configuration}" == X'Letsencrypt' ]; then
+elif [ X"${ssl_configuration}" == X'LETSENCRYPT' ]; then
     
-    export ssl_configuration='Letsencrypt'
+    export ssl_configuration='LETSENCRYPT'
 
 echo "export ssl_configuration='${ssl_configuration}'" >>${SERVER_CONFIG_FILE}
 

@@ -17,7 +17,7 @@ install_all()
 
  # lets encrypt
 
-    if [ X"${SSL_CONFIGURATION}" == X'Lets encrypt' ]; then
+    if [ X"${ssl_configuration}" == X'LETSENCRYPT' ]; then
        if [ X"${DISTRO}" == X'UBUNTU' ]; then
          add-apt-repository ppa:certbot/certbot
          ALL_PKGS="${ALL_PKGS} python-certbot-apache"
