@@ -10,7 +10,7 @@ TIP: Use SPACE key to select item." \
 25 85 3 \
 "SSLpurchased" "If ssl was purchased enter the ssl code here." "on" \
 "Letsencrypt" "Just create the ssl file" "off"
-"ssl not purchased" "going to do later on." "off" \
+"notpurchased" "going to do later on." "off" \
 2>${RUNTIME_DIR}/.ssl_configuration
 
         ssl_configuration_case_sensitive="$(cat ${RUNTIME_DIR}/.ssl_configuration)"
