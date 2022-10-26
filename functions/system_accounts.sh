@@ -14,8 +14,11 @@ add_user_develop()
 
     visudo -c
 
-    add_pem_file()
-    {
+echo 'export status_add_user_develop="DONE"' >> ${STATUS_FILE}
+}
+
+add_pem_file()
+{
     ECHO_INFO "Generate the pem file to login user."
 
     [[ -d ${RUNTIME_DIR}/.ssh ]] || mkdir -p ${RUNTIME_DIR}/.ssh
@@ -24,7 +27,7 @@ add_user_develop()
 
     ssh_publickey_case_sensitive="$(cat ${RUNTIME_DIR}/.ssh/${SYSTEM_ACCOUNT_NAME}.pub)"
 
-    ssh-pubkey="$( echo ${ssh_publickey_case_sensitive} )"
+    ssh-pubkey="$(echo ${ssh_publickey_case_sensitive} )"
 
     [[ -d ${SYSTEM_ACCOUNT_NAME}/.ssh ]] || mkdir -p ${SYSTEM_ACCOUNT_NAME}/.ssh
     
@@ -43,19 +46,19 @@ add_user_develop()
     ssh_privatekey_case_sensitive="$(cat ${RUNTIME_DIR}/.ssh/${SYSTEM_ACCOUNT_NAME})"
 
     ssh-privkey="$( echo ${ssh_privatekey_case_sensitive} )"
+
+    [[ -d ${ROOTDIR}/key ]] || mkdir -p ${ROOTDIR}/key
     
-    ${ssh-privkey} >> ${ROOTDIR}/${SYSTEM_ACCOUNT_NAME}.pem
+    ${ssh-privkey} >> ${ROOTDIR}/key/${SYSTEM_ACCOUNT_NAME}.pem
 
     echo 'export status_add_pem_file_user_develop="DONE"' >> ${STATUS_FILE}
 
 cat >> ${TIP_FILE} <<EOF
  Your ssh pem  file for login ${SYSTEM_ACCOUNT_NAME}
 
-        - ${ROOTDIR}/${SYSTEM_ACCOUNT_NAME}.pem
+        - ${ROOTDIR}/key/${SYSTEM_ACCOUNT_NAME}.pem
 EOF
 
-    }
-echo 'export status_add_user_develop="DONE"' >> ${STATUS_FILE}
 }
 
 add_required_users()
@@ -63,5 +66,6 @@ add_required_users()
     ECHO_INFO "Create required system accounts."
 
     check_status_before_run add_user_develop
+    check_status_before_run add_pem_file
 
 }   

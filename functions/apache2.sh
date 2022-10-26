@@ -4,8 +4,6 @@ apache2_config()
 {
     ECHO_INFO "Configure Apache2 web server."
 
-    backup_file ${APACHE2_CONF} ${APACHE2_CONF_SITE_DEFAULT} ${APACHE2_CONF_SITE_DEFAULT_SSL}
-
     # Make sure we have an empty directory
     # Directory used to store virtual web hosts config files
     [ -d ${HTTP_CONF_DIR_AVAILABLE_SITES} ] && mv ${HTTP_CONF_DIR_AVAILABLE_SITES} ${HTTP_CONF_DIR_AVAILABLE_SITES}.bak
@@ -14,6 +12,7 @@ apache2_config()
     [ -d ${HTTP_CONF_DIR_ENABLED_SITES} ] && mv ${HTTP_CONF_DIR_ENABLED_SITES} ${HTTP_CONF_DIR_ENABLED_SITES}.bak
     [ ! -d ${HTTP_CONF_DIR_ENABLED_SITES} ] && mkdir -p ${HTTP_CONF_DIR_ENABLED_SITES}
 
+    backup_file ${APACHE2_CONF} ${APACHE2_CONF_SITE_DEFAULT} ${APACHE2_CONF_SITE_DEFAULT_SSL}
     #
     # Modular config files
     #
@@ -39,9 +38,22 @@ apache2_config()
     perl -pi -e 's#PH_HTTP_DOCUMENTROOT#$ENV{HTTP_DOCUMENTROOT}#g' ${HTTP_CONF_DIR_AVAILABLE_SITES}/*.conf
     
     # Domain & subdomain name
+    
+
+    if [ X"${SUBDOMAIN_NAME}" == X'www']; then
+     
     perl -pi -e 's#PH_DOMAIN_NAME#$ENV{DOMAIN_NAME}#g' ${HTTP_CONF_DIR_AVAILABLE_SITES}/*.conf
     perl -pi -e 's#PH_SUBDOMAIN_NAME#$ENV{SUBDOMAIN_NAME}#g' ${HTTP_CONF_DIR_AVAILABLE_SITES}/*.conf
 
+    else 
+
+    export FLQN_NAME="${SUBDOMAIN_NAME}.${DOMAIN_NAME}"
+
+    perl -pi -e 's#PH_DOMAIN_NAME#$ENV{FLQN_NAME}#g' ${HTTP_CONF_DIR_AVAILABLE_SITES}/*.conf
+
+    sudo sed -i -e '11 s/ServerAlias/#ServerAlias/g' /etc/apache2/sites-available/000-default.conf
+    sudo sed -i -e '6 s/ServerAlias/#ServerAlias/g' /etc/apache2/sites-available/default-ssl.conf
+    
 
     #enable http2 htaccess rewrite 
     a2enmod http2 headers rewrite 
