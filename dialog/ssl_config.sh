@@ -1,5 +1,5 @@
 export DISABLE_SSL_CONFIUGRATION='NO'
-export SSL_CONFIGURATION=''
+export ssl_configuration=''
 
 while : ; do
         ${DIALOG} \
@@ -9,7 +9,8 @@ while : ; do
 TIP: Use SPACE key to select item." \
 25 85 3 \
 "SSLpurchased" "If ssl was purchased enter the ssl code here." "on" \
-"ssl not purchased" "just create only a file." "off" \
+"Letsencrypt" "Just create the ssl file" "off"
+"ssl not purchased" "going to do later on." "off" \
 2>${RUNTIME_DIR}/.ssl_configuration
 
         ssl_configuration_case_sensitive="$(cat ${RUNTIME_DIR}/.ssl_configuration)"
@@ -20,11 +21,16 @@ TIP: Use SPACE key to select item." \
     rm -f ${RUNTIME_DIR}/.ssl_configuration
 
 if [ X"${ssl_configuration}" == X'SSLpurchased' ]; then
-    export SSL_CONFIGURATION='SSLpurchased'
+   
+    export ssl_configuration='SSLpurchased'
 
-echo "export SSL_CONFIGURATION='${SSL_CONFIGURATION}'" >>${SERVER_CONFIG_FILE}
+echo "export ssl_configuration='${ssl_configuration}'" >>${SERVER_CONFIG_FILE}
 
+elif [ X"${ssl_configuration}" == X'Letsencrypt' ]; then
+    
+    export ssl_configuration='Letsencrypt'
 
+echo "export ssl_configuration='${ssl_configuration}'" >>${SERVER_CONFIG_FILE}
 else
     export DISABLE_SSL_CONFIUGRATION='YES'
     echo "export DISABLE_SSL_CONFIUGRATION='YES'" >>${SERVER_CONFIG_FILE}
@@ -36,6 +42,6 @@ You entered details regarding the domain :
 
     * Domain name :          ${DOMAIN_NAME}
     * Subdomain name :       ${SUBDOMAIN_NAME}
-    * ssl_status :           ${SSL_CONFIGURATION}
+    * ssl_status :           ${ssl_configuration}
 
 EOF
