@@ -1,13 +1,12 @@
 #!/usr/bin/env bash
 
-
 # -------------------------------------------------------
 # ------------------- config database. ------------------
 # -------------------------------------------------------
 db_server_config()
 {
 
-    if [ X"${BACKEND}" == X'MONGO' ]; then
+    if [ X"${DB_SERVER}" == X'MONGO' ]; then
        
     # For Mongo database management.
     echo " Mongo accessing Admin details: " >> ${SERVER_CONFIG_FILE}
