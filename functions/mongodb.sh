@@ -3,7 +3,10 @@
 mongo_setup()
 {
      # Starting mongo
-    ECHO_DEBUG "Start service: ${MONGO_RC_SCRIPT_NAME}."
+    ECHO_INFO "Enable service: ${MONGO_RC_SCRIPT_NAME}."
+    service_control enable ${MONGO_RC_SCRIPT_NAME}
+    
+    ECHO_INFO "Start service: ${MONGO_RC_SCRIPT_NAME}."
     service_control start ${MONGO_RC_SCRIPT_NAME}
 
     ECHO_INFO "Configure Mongo database server."
@@ -50,6 +53,7 @@ EOF
   if [ ! -e ${MONGO_CONF} ]; then
    ECHO_DEBUG "Copy sample MONGO config file: ${MONGO_CONF_SAMPLE} -> ${MONGO_CONF}."
         mkdir -p $(dirname ${MONGO_CONF}) &>/dev/null >> ${INSTALL_LOG} 2>&1
+        backup_file ${MONGO_CONF}
        if [ -f ${MONGO_CONF_SAMPLE} ]; then
             cp ${MONGO_CONF_SAMPLE} ${MONGO_CONF} >> ${INSTALL_LOG} 2>&1
         else
@@ -153,7 +157,6 @@ Backup MONGO database:
         # crontab -l -u ${SYS_USER_ROOT}
 
 EOF
-td
     echo 'export status_mongo_cron_backup="DONE"' >> ${STATUS_FILE}
 }
 
