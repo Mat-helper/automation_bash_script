@@ -81,15 +81,14 @@ if [ X"${DISTRO}" == X'UBUNTU' ]; then
     fi
 fi
 
-  check_pkg ${BIN_DIALOG} ${PKG_DIALOG}
-install_missing_pkg
-
- # Force update.
+# Force update.
     ECHO_INFO "apt update ..."
     ${APTGET} update
      ECHO_INFO "apt upgrade ..."
     ${APTGET} upgrade -y
 
+  check_pkg ${BIN_DIALOG} ${PKG_DIALOG}
+install_missing_pkg
 
 echo_end_msg && \
 echo 'export status_get_all="DONE"' >> ${STATUS_FILE}
