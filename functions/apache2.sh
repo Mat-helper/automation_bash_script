@@ -12,7 +12,7 @@ apache2_config()
     [ -d ${HTTP_CONF_DIR_ENABLED_SITES} ] && mv ${HTTP_CONF_DIR_ENABLED_SITES} ${HTTP_CONF_DIR_ENABLED_SITES}.bak
     [ ! -d ${HTTP_CONF_DIR_ENABLED_SITES} ] && mkdir -p ${HTTP_CONF_DIR_ENABLED_SITES}
 
-    backup_file ${APACHE2_CONF} ${APACHE2_CONF_SITE_DEFAULT} ${APACHE2_CONF_SITE_DEFAULT_SSL}
+    backup_file ${APACHE2_CONF} ${HTTP_CONF_DIR_AVAILABLE_SITES}/${APACHE2_CONF_SITE_DEFAULT} ${HTTP_CONF_DIR_AVAILABLE_SITES}/${APACHE2_CONF_SITE_DEFAULT_SSL}
     #
     # Modular config files
     #
@@ -22,24 +22,22 @@ apache2_config()
     #
     # Default sites
     #
-    cp -f ${APACHE2_SAMPLE_DIR}/sites-available/000-default.conf ${APACHE2_CONF_SITE_DEFAULT}
-    cp -f ${APACHE2_SAMPLE_DIR}/sites-available/default-ssl.conf ${APACHE2_CONF_SITE_DEFAULT_SSL}
-    ${SITE_ENABLE} ${APACHE2_CONF_SITE_DEFAULT} >> ${INSTALL_LOG} 2>&1
-   
-
+    cp -f ${APACHE2_SAMPLE_DIR}/sites-available/000-default.conf ${HTTP_CONF_DIR_AVAILABLE_SITES}/${APACHE2_CONF_SITE_DEFAULT}
+    cp -f ${APACHE2_SAMPLE_DIR}/sites-available/default-ssl.conf ${HTTP_CONF_DIR_AVAILABLE_SITES}/${APACHE2_CONF_SITE_DEFAULT_SSL}
+    cd ${HTTP_CONF_DIR_AVAILABLE_SITES}
+    
     #configure X-frame-options
     sudo echo -e "Header set X-Frame-Options: \"sameorigin\"" >> ${HTTP_CONF_DIR_AVAILABLE_CONF}/security.conf     
 
     # Ports
-    perl -pi -e 's#PH_PORT_HTTP#$ENV{PORT_HTTP}#g' ${APACHE2_CONF_SITE_DEFAULT}
-    perl -pi -e 's#PH_HTTPS_PORT#$ENV{HTTPS_PORT}#g' ${APACHE2_CONF_SITE_DEFAULT_SSL}
+    perl -pi -e 's#PH_PORT_HTTP#$ENV{PORT_HTTP}#g' ${HTTP_CONF_DIR_AVAILABLE_SITES}/${APACHE2_CONF_SITE_DEFAULT}
+    perl -pi -e 's#PH_HTTPS_PORT#$ENV{HTTPS_PORT}#g' ${HTTP_CONF_DIR_AVAILABLE_SITES}/${APACHE2_CONF_SITE_DEFAULT_SSL}
 
     # web sites
     perl -pi -e 's#PH_HTTP_DOCUMENTROOT#$ENV{HTTP_DOCUMENTROOT}#g' ${HTTP_CONF_DIR_AVAILABLE_SITES}/*.conf
     
     # Domain & subdomain name
     
-
     if [ X"${SUBDOMAIN_NAME}" == X'www']; then
 
     export FLQN_NAME="${SUBDOMAIN_NAME}.${DOMAIN_NAME}"
@@ -54,13 +52,15 @@ apache2_config()
     perl -pi -e 's#PH_DOMAIN_NAME#$ENV{FLQN_NAME}#g' ${HTTP_CONF_DIR_AVAILABLE_SITES}/*.conf
     perl -pi -e 's#PH_FLQN_NAME#$ENV{FLQN_NAME}#g' ${HTTP_CONF_DIR_AVAILABLE_SITES}/*.conf
 
-    sudo sed -i -e '11 s/ServerAlias/#ServerAlias/g' /etc/apache2/sites-available/000-default.conf
-    sudo sed -i -e '6 s/ServerAlias/#ServerAlias/g' /etc/apache2/sites-available/default-ssl.conf
+    sudo sed -i -e '11 s/ServerAlias/#ServerAlias/g' ${HTTP_CONF_DIR_AVAILABLE_SITES}/${APACHE2_CONF_SITE_DEFAULT}
+    sudo sed -i -e '6 s/ServerAlias/#ServerAlias/g' ${HTTP_CONF_DIR_AVAILABLE_SITES}/${APACHE2_CONF_SITE_DEFAULT_SSL}
     
     fi
     #enable http2 htaccess rewrite 
     a2enmod http2 headers rewrite 
-
+    cd ${HTTP_CONF_DIR_AVAILABLE_SITES}
+    ${SITE_ENABLE} ${APACHE2_CONF_SITE_DEFAULT} >> ${INSTALL_LOG} 2>&1
+    cd ${ROOTDIR}
     # starting apache2
     ECHO_DEBUG "Restart service: ${APACHE2_RC_SCRIPT_NAME}."
     service_control restart ${APACHE2_RC_SCRIPT_NAME}

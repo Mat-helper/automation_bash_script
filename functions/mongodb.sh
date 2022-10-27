@@ -2,13 +2,9 @@
 
 mongo_initialize_db()
 {
-ECHO_DEBUG "Initialize MySQL server."
+ECHO_DEBUG "Initialize MONGO server."
 
 backup_file ${MONGO_CONF}
-
-ECHO_DEBUG "Stop MySQL service before initializing database or updating my.cnf."
-    service_control stop ${MYSQL_RC_SCRIPT_NAME}
-    sleep 3
 
 # create the admin user     
 mongo  <<EOF
@@ -56,7 +52,7 @@ perl -pi -e 's#PH_MONGO_PORT#$ENV{MONGO_PORT}#g' ${MONGO_CONF}
 cat >> ${TIP_FILE} <<EOF
 Mongo DB reference : 
 
-MYSQLD_RC_SCRIPT
+MONGOD_RC_SCRIPT
 
 * Config file: ${MONGO_CONF}
 

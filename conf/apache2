@@ -36,5 +36,5 @@ export APACHE2_CONF="${HTTP_CONF_ROOT}/apache2.conf"
 
 export SITE_ENABLE="a2ensite"
 
-export APACHE2_CONF_SITE_DEFAULT="${HTTP_CONF_DIR_AVAILABLE_SITES}/000-default.conf"
-export APACHE2_CONF_SITE_DEFAULT_SSL="${HTTP_CONF_DIR_AVAILABLE_SITES}/default-ssl.conf"
+export APACHE2_CONF_SITE_DEFAULT='000-default.conf'
+export APACHE2_CONF_SITE_DEFAULT_SSL='default-ssl.conf'
