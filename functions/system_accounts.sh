@@ -14,7 +14,7 @@ add_user_develop()
 
     visudo -c
 
-    ln -s ${BACKUP_DIR}/${cache_clear_script} /home/${SYSTEM_ACCOUNT_NAME}
+    ln -s ${cache_clear_script} /home/${SYSTEM_ACCOUNT_NAME}
     
     echo "Link the buffer cache clear script to the ${SYSTEM_ACCOUNT_NAME} home location"
 
@@ -66,16 +66,16 @@ add_required_users()
 
 # separatly save the user_details for sharing to the developer.
 cat >> ${Developer_TIP_FILE} <<EOF
+
 system_account reference : 
 
 Developer user details : 
           * Username: ${SYSTEM_ACCOUNT_NAME}
           * Password: Nopassword
+            Your ssh pem  file for login ${SYSTEM_ACCOUNT_NAME}.pem
 
-Your ssh pem  file for login ${SYSTEM_ACCOUNT_NAME}.pem
-
-Buffer cache clear file location : /home/${SYSTEM_ACCOUNT_NAME}
-run command to clear the cache "sudo bash ${BUFFER_CACHE_CLEAR}"
+    Buffer cache clear file location : /home/${SYSTEM_ACCOUNT_NAME}
+    run command to clear the cache "sudo bash ${BUFFER_CACHE_CLEAR}"
 EOF
 
 }   
