@@ -30,6 +30,7 @@ db_server_config()
     export MONGO_PORT="$(${RANDOM_NUMBER})"
     echo "export MONGO_PORT='${MONGO_PORT}'" >> ${SERVER_CONFIG_FILE}
 
+     . ${FUNCTIONS_DIR}/mongodb.sh
      check_status_before_run mongo_setup
     fi
 
