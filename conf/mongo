@@ -5,15 +5,4 @@ export MONGO_RC_SCRIPT_NAME='mongod'
 
 export MONGO_CONF_SAMPLE="${SAMPLE_DIR}/mongo/mongod.conf"
 
-export MONGO_USER="$(${RANDOM_STRING})"
-export MONGO_PASSWD="$(${RANDOM_STRING})"
-export DATABASE_NAME="$(${RANDOM_STRING})"
-export MONGO_PORT="$(${RANDOM_NUMBER})"
-
-
-echo "export MONGO_USER='${MONGO_USER}'" >>${SERVER_CONFIG_FILE}
-echo "export MONGO_PASSWD='${MONGO_PASSWD}'" >>${SERVER_CONFIG_FILE}
-echo "export DATABASE_NAME='${DATABASE_NAME}'" >>${SERVER_CONFIG_FILE}
-echo "export MONGO_PORT='${MONGO_PORT}'" >>${SERVER_CONFIG_FILE}
-
 export MONGO_CONF='/etc/mongod.conf'
