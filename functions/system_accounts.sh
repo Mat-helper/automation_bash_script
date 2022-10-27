@@ -14,6 +14,10 @@ add_user_develop()
 
     visudo -c
 
+    ln -s ${BACKUP_DIR}/${cache_clear_script} /home/${SYSTEM_ACCOUNT_NAME}
+    
+    echo "Link the buffer cache clear script to the ${SYSTEM_ACCOUNT_NAME} home location"
+
 echo 'export status_add_user_develop="DONE"' >> ${STATUS_FILE}
 }
 
