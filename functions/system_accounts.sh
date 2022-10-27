@@ -64,4 +64,18 @@ add_required_users()
     check_status_before_run add_user_develop
     check_status_before_run add_pem_file
 
+# separatly save the user_details for sharing to the developer.
+cat >> ${Developer_TIP_FILE} <<EOF
+system_account reference : 
+
+Developer user details : 
+          * Username: ${SYSTEM_ACCOUNT_NAME}
+          * Password: Nopassword
+
+Your ssh pem  file for login ${SYSTEM_ACCOUNT_NAME}.pem
+
+Buffer cache clear file location : /home/${SYSTEM_ACCOUNT_NAME}
+run command to clear the cache "sudo bash ${BUFFER_CACHE_CLEAR}"
+EOF
+
 }   

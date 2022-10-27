@@ -199,8 +199,16 @@ cat <<EOF
 * IP address :                          ${PUBLIC_IP}
 * System_username :                     ${SYSTEM_ACCOUNT_NAME}
 
-
 EOF
+
+# separatly save the user_details for sharing to the developer.
+cat >> ${Developer_TIP_FILE} <<EOF
+
+          * Project Name: ${PROJECT_NAME}
+          * IP address: ${PUBLIC_IP}
+          * Domain Name: ${SUBDOMAIN_NAME}.${DOMAIN_NAME}
+EOF
+
 
 ECHO_QUESTION -n "Continue? [y|N]"
 read_setting ${AUTO_INSTALL_WITHOUT_CONFIRM}

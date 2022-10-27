@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 export DISABLE_SSL_CONFIUGRATION='NO'
 export ssl_configuration=''
 

@@ -21,6 +21,17 @@ backend_install()
 
         chown -R ${SYSTEM_ACCOUNT_NAME}:${SYS_GROUP_WEB} /var/www
 
+        ECHO_INFO "add the proxy at apache2 server"
+
+        sed -i -e '18,27 {s/#//g}' ${HTTP_CONF_DIR_AVAILABLE_SITES}/${APACHE2_CONF_SITE_DEFAULT_SSL}
+
+        #enable http2 htaccess rewrite 
+         a2enmod proxy proxy_ssl proxy_balancer proxy_http proxy_http2 proxy_wstunnel
+
+        # starting apache2
+         ECHO_INFO "Restart service: ${APACHE2_RC_SCRIPT_NAME}."
+         service_control restart ${APACHE2_RC_SCRIPT_NAME}
+
         echo 'export status_backend_setup="DONE"' >> ${STATUS_FILE}
 
     fi
