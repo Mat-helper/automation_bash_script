@@ -1,5 +1,20 @@
 #!/usr/bin/env bash
 
+mongo_setup()
+{
+     # Starting mongo
+    ECHO_DEBUG "Start service: ${MONGO_RC_SCRIPT_NAME}."
+    service_control start ${MONGO_RC_SCRIPT_NAME}
+
+    ECHO_INFO "Configure Mongo database server."
+
+    check_status_before_run mongo_initialize_db
+
+    check_status_before_run mongo_cron_backup
+
+    echo 'export status_mongo_setup="DONE"' >> ${STATUS_FILE}
+}
+
 mongo_initialize_db()
 {
 ECHO_DEBUG "Initialize MONGO server."
@@ -142,14 +157,5 @@ td
     echo 'export status_mongo_cron_backup="DONE"' >> ${STATUS_FILE}
 }
 
-mongo_setup()
-{
-    ECHO_INFO "Configure Mongo database server."
 
-    check_status_before_run mongo_initialize_db
-
-    check_status_before_run mongo_cron_backup
-
-    echo 'export status_mongo_setup="DONE"' >> ${STATUS_FILE}
-}
 

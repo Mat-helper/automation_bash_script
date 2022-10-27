@@ -12,7 +12,7 @@ generate_ssl_keys ()
 
          [[ -f ${SSL_FULLCHAIN_FILE} ]] || touch ${SSL_CERT_FILE} 
 
-        echo " Copy paste the SSL key file in repestive order ${SSL_CERT_FILE}, ${SSL_KEY_FILE}, ${SSL_FULLCHAIN_FILE}"
+        ECHO_INFO " Copy paste the SSL key file in repestive order ${SSL_CERT_FILE}, ${SSL_KEY_FILE}, ${SSL_FULLCHAIN_FILE}"
         sleep 3
 
         nano ${SSL_CERT_FILE}

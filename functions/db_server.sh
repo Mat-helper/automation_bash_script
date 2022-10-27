@@ -17,7 +17,7 @@ db_server_config()
     echo "export MONGO_DB_ADMIN_PASSWD='${MONGO_DB_ADMIN_PASSWD}'" >> ${SERVER_CONFIG_FILE}
 
     # For Mongo database user details.
-    echo " Mongo accessing Admin details: " >> ${SERVER_CONFIG_FILE}
+    echo " Mongo accessing developer user details: " >> ${SERVER_CONFIG_FILE}
     export MONGO_USER="$(${RANDOM_STRING})"
     echo "export MONGO_USER='${MONGO_USER}'" >> ${SERVER_CONFIG_FILE}
 
