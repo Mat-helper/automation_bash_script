@@ -19,7 +19,7 @@ export CONFIG_VIA_DIALOG="${DIALOG_DIR}/config_via_dialog.sh"
 # Note: config file will be sourced in file 'conf/core', function 'check_env()'.
 export SERVER_CONFIG_FILE="${ROOTDIR}/config"
 export TIP_FILE="${ROOTDIR}/server.tips"
-export Developer_TIP_FILE="${ROOTDIR}/For_developers.tips"
+export Developer_TIP_FILE="${ROOTDIR}/To_developers.tips"
 export STATUS_FILE="${RUNTIME_DIR}/install.status"
 export INSTALL_LOG="${RUNTIME_DIR}/install.log"
 export PKG_INSTALL_LOG="${RUNTIME_DIR}/pkg.install.log"

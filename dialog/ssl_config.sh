@@ -40,11 +40,5 @@ else
 fi
 
 cat >> ${TIP_FILE} <<EOF
-
-You entered details regarding the domain :
-
-    * Domain name :          ${DOMAIN_NAME}
-    * Subdomain name :       ${SUBDOMAIN_NAME}
-    * ssl_status :           ${ssl_configuration_case_sensitive}
-
+            * ssl_status :           ${ssl_configuration_case_sensitive}
 EOF

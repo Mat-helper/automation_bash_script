@@ -50,9 +50,12 @@ add_pem_file()
     echo 'export status_add_pem_file_user_develop="DONE"' >> ${STATUS_FILE}
 
 cat >> ${TIP_FILE} <<EOF
- Your ssh pem  file for login ${SYSTEM_ACCOUNT_NAME}
 
-        - ${RUNTIME_DIR}/key/${SYSTEM_ACCOUNT_NAME}.pem
+system_account reference : 
+    Developer user details : 
+          * Username: ${SYSTEM_ACCOUNT_NAME}
+          * Password: Nopassword
+          * keyfile:  ${SYSTEM_ACCOUNT_NAME}.pem (location:  - ${RUNTIME_DIR}/key/${SYSTEM_ACCOUNT_NAME}.pem)
 EOF
 
 }
@@ -67,15 +70,13 @@ add_required_users()
 # separatly save the user_details for sharing to the developer.
 cat >> ${Developer_TIP_FILE} <<EOF
 
-system_account reference : 
-
-Developer user details : 
-          * Username: ${SYSTEM_ACCOUNT_NAME}
-          * Password: Nopassword
-            Your ssh pem  file for login ${SYSTEM_ACCOUNT_NAME}.pem
-
-    Buffer cache clear file location : /home/${SYSTEM_ACCOUNT_NAME}
-    run command to clear the cache "sudo bash ${BUFFER_CACHE_CLEAR}"
+            * system_account reference :  
+                 - Username: ${SYSTEM_ACCOUNT_NAME}
+                 - Password: Nopassword
+                 - keyfile:  ${SYSTEM_ACCOUNT_NAME}.pem
+                 - Notes: 
+                         Buffer cache clear file location : /home/${SYSTEM_ACCOUNT_NAME}
+                         run command to clear the cache "sudo bash ${BUFFER_CACHE_CLEAR}"
 EOF
 
 }   

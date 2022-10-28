@@ -51,6 +51,11 @@ rm -f ${RUNTIME_DIR}/.project_name &>/dev/null
 export PROJECT_NAME="${PROJECT_NAME}"
 echo "export PROJECT_NAME='${PROJECT_NAME}'" >> ${SERVER_CONFIG_FILE}
 
+cat >> ${TIP_FILE} <<EOF
+This is the ${PROJECT_NAME} file has configuration & login details.
+
+EOF
+
 # --------------------------------------------------
 # ------------ Default web server ------------------
 # --------------------------------------------------
@@ -84,7 +89,6 @@ echo "export WEB_SERVER='${WEB_SERVER}'" >>${SERVER_CONFIG_FILE}
 # domain configuration.
 . ${DIALOG_DIR}/domain_config.sh
 . ${DIALOG_DIR}/ssl_config.sh
-
 
 else
     export DISABLE_WEB_SERVER='YES'
@@ -203,9 +207,10 @@ EOF
 
 # separatly save the user_details for sharing to the developer.
 cat >> ${Developer_TIP_FILE} <<EOF
-* Project Name: ${PROJECT_NAME}
+Project Name: ${PROJECT_NAME}
 
           * IP address: ${PUBLIC_IP}
+          
           * Domain Name: ${SUBDOMAIN_NAME}.${DOMAIN_NAME}
 EOF
 

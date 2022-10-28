@@ -50,4 +50,6 @@ echo "export SUBDOMAIN_NAME='${SUBDOMAIN_NAME}'" >> ${SERVER_CONFIG_FILE}
 
 rm -f ${RUNTIME_DIR}/.subdomain_name
 
-
+cat >> ${TIP_FILE} <<EOF
+            * Domain name: ${SUBDOMAIN_NAME}.${DOMAIN_NAME}
+EOF
