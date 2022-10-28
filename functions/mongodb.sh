@@ -20,7 +20,7 @@ mongo_setup()
 
 mongo_initialize_db()
 {
-ECHO_DEBUG "Initialize MONGO server."
+ECHO_INFO "Initialize MONGO server."
 
 backup_file ${MONGO_CONF}
 
@@ -49,17 +49,15 @@ mongo -u ${MONGO_DB_ADMIN_USER} -p ${MONGO_DB_ADMIN_PASSWD} --authenticationData
 EOF
 
 # config file
-
-  if [ ! -e ${MONGO_CONF} ]; then
-   ECHO_DEBUG "Copy sample MONGO config file: ${MONGO_CONF_SAMPLE} -> ${MONGO_CONF}."
-        mkdir -p $(dirname ${MONGO_CONF}) &>/dev/null >> ${INSTALL_LOG} 2>&1
-        backup_file ${MONGO_CONF}
-       if [ -f ${MONGO_CONF_SAMPLE} ]; then
+ # if [ ! -e ${MONGO_CONF} ]; then
+   ECHO_INFO "Copy sample MONGO config file: ${MONGO_CONF_SAMPLE} -> ${MONGO_CONF}."
+       # mkdir -p $(dirname ${MONGO_CONF}) &>/dev/null >> ${INSTALL_LOG} 2>&1
+       if [ ! -f ${MONGO_CONF_SAMPLE} ]; then
             cp ${MONGO_CONF_SAMPLE} ${MONGO_CONF} >> ${INSTALL_LOG} 2>&1
         else
             cp ${SAMPLE_DIR}/mongo/mongod.conf ${MONGO_CONF} >> ${INSTALL_LOG} 2>&1
         fi
-  fi
+ # fi
 
 # add port number at config file
 perl -pi -e 's#PH_MONGO_PORT#$ENV{MONGO_PORT}#g' ${MONGO_CONF}
