@@ -3,10 +3,10 @@
 mongo_setup()
 {
      # Starting mongo
-    ECHO_INFO "Enable service: ${MONGO_RC_SCRIPT_NAME}."
+    ECHO_DEBUG "Enable service: ${MONGO_RC_SCRIPT_NAME}."
     service_control enable ${MONGO_RC_SCRIPT_NAME}
     
-    ECHO_INFO "Start service: ${MONGO_RC_SCRIPT_NAME}."
+    ECHO_DEBUG "Start service: ${MONGO_RC_SCRIPT_NAME}."
     service_control start ${MONGO_RC_SCRIPT_NAME}
 
     ECHO_INFO "Configure Mongo database server."
