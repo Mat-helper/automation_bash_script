@@ -3,10 +3,10 @@
 mongo_setup()
 {
      # Starting mongo
-    ECHO_DEBUG "Enable service: ${MONGO_RC_SCRIPT_NAME}."
+    ECHO_INFO "Enable service: ${MONGO_RC_SCRIPT_NAME}."
     service_control enable ${MONGO_RC_SCRIPT_NAME}
     
-    ECHO_DEBUG "Start service: ${MONGO_RC_SCRIPT_NAME}."
+    ECHO_INFO "Start service: ${MONGO_RC_SCRIPT_NAME}."
     service_control start ${MONGO_RC_SCRIPT_NAME}
 
     ECHO_INFO "Configure Mongo database server."
@@ -25,6 +25,7 @@ ECHO_INFO "Initialize MONGO server."
 backup_file ${MONGO_CONF}
 
 # create the admin user     
+ECHO_INFO "Creating Mongo admin user"
 mongo  <<EOF
   use admin;
   db.createUser(
@@ -37,6 +38,7 @@ mongo  <<EOF
 EOF
 
 # create the developer user with read & write
+ECHO_INFO "Creating Mongo developer user"
 mongo -u ${MONGO_DB_ADMIN_USER} -p ${MONGO_DB_ADMIN_PASSWD} --authenticationDatabase admin  <<EOF
   use ${DATABASE_NAME};
   db.createUser(
@@ -60,7 +62,7 @@ EOF
 perl -pi -e 's#PH_MONGO_PORT#$ENV{MONGO_PORT}#g' ${MONGO_CONF}
 
  # Restarting mongo
-    ECHO_DEBUG "Restart service: ${MONGO_RC_SCRIPT_NAME}."
+    ECHO_INFO "Restart service: ${MONGO_RC_SCRIPT_NAME}."
     service_control restart ${MONGO_RC_SCRIPT_NAME}
 
 cat >> ${TIP_FILE} <<EOF
@@ -69,11 +71,11 @@ Mongo DB reference :
 
     * Config file: ${MONGO_CONF}
     ##################  INFO: Don't share admin user details with developers. #####################
-    Superadmin details : 
-          * Username: ${MONGO_DB_ADMIN_USER}
-          * Password: ${MONGO_DB_ADMIN_PASSWD}
-          * Port:     ${MONGO_PORT}
-          * DB_NAME:  admin
+    * Superadmin details : 
+          - Username: ${MONGO_DB_ADMIN_USER}
+          - Password: ${MONGO_DB_ADMIN_PASSWD}
+          - Port:     ${MONGO_PORT}
+          - DB_NAME:  admin
 
     #command: 
       mongo -u ${MONGO_DB_ADMIN_USER} -p ${MONGO_DB_ADMIN_PASSWD} --authenticationDatabase admin --port $MONGO_PORT
@@ -81,12 +83,12 @@ Mongo DB reference :
     #    This is admin login details for mongo database 
     ################################################################################################
 
-    Developer db details : 
-          * Username: ${MONGO_USER}
-          * Password: ${MONGO_PASSWD}
-          * PORT:     ${MONGO_PORT}
-          * DB_NAME:  ${DATABASE_NAME}
-          * IP        ${PUBLIC_IP}
+    * Developer db details : 
+          - Username: ${MONGO_USER}
+          - Password: ${MONGO_PASSWD}
+          - PORT:     ${MONGO_PORT}
+          - DB_NAME:  ${DATABASE_NAME}
+          - IP        ${PUBLIC_IP}
 
      share the above details to the developers for login the mongo database.
 
@@ -100,16 +102,16 @@ EOF
 # separatly save the db_details for sharing to the developer.
 cat >> ${Developer_TIP_FILE} <<EOF
 
-      * Mongo DB reference : 
-          - Username: ${MONGO_USER}
-          - Password: ${MONGO_PASSWD}
-          - PORT:     ${MONGO_PORT}
-          - DB_NAME:  ${DATABASE_NAME}
-          - IP :      ${PUBLIC_IP}
+       * Mongo DB reference : 
+           - Username: ${MONGO_USER}
+           - Password: ${MONGO_PASSWD}
+           - PORT:     ${MONGO_PORT}
+           - DB_NAME:  ${DATABASE_NAME}
+           - IP :      ${PUBLIC_IP}
 
-      # commands : 
-        mongo -u ${MONGO_USER} -p ${MONGO_PASSWD} ${PUBLIC_IP}:$MONGO_PORT/${DATABASE_NAME}
-        mongoURI: "mongodb://${MONGO_USER}:${MONGO_PASSWD}@${PUBLIC_IP}:$MONGO_PORT/${DATABASE_NAME}" 
+       # commands : 
+           mongo -u ${MONGO_USER} -p ${MONGO_PASSWD} ${PUBLIC_IP}:$MONGO_PORT/${DATABASE_NAME}
+           mongoURI: "mongodb://${MONGO_USER}:${MONGO_PASSWD}@${PUBLIC_IP}:$MONGO_PORT/${DATABASE_NAME}" 
 EOF
 
 echo 'export status_mongo_initialize_db="DONE"' >> ${STATUS_FILE}

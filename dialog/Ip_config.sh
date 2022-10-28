@@ -26,5 +26,5 @@ rm -f ${RUNTIME_DIR}/.public_ip
 
 
 cat >> ${TIP_FILE} <<EOF
-         * IP_address: ${PUBLIC_IP}
+             * IP_address: ${PUBLIC_IP}
 EOF

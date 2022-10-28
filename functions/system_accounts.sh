@@ -52,10 +52,10 @@ add_pem_file()
 cat >> ${TIP_FILE} <<EOF
 
 system_account reference : 
-    Developer user details : 
-          * Username: ${SYSTEM_ACCOUNT_NAME}
-          * Password: Nopassword
-          * keyfile:  ${SYSTEM_ACCOUNT_NAME}.pem (location:  - ${RUNTIME_DIR}/key/${SYSTEM_ACCOUNT_NAME}.pem)
+    * Developer user details : 
+          - Username: ${SYSTEM_ACCOUNT_NAME}
+          - Password: Nopassword
+          - keyfile:  ${SYSTEM_ACCOUNT_NAME}.pem (location:  - ${RUNTIME_DIR}/key/${SYSTEM_ACCOUNT_NAME}.pem)
 EOF
 
 }
@@ -70,7 +70,7 @@ add_required_users()
 # separatly save the user_details for sharing to the developer.
 cat >> ${Developer_TIP_FILE} <<EOF
 
-            * system_account reference :  
+        * system_account reference :  
                  - Username: ${SYSTEM_ACCOUNT_NAME}
                  - Password: Nopassword
                  - keyfile:  ${SYSTEM_ACCOUNT_NAME}.pem
