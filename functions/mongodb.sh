@@ -24,6 +24,8 @@ ECHO_INFO "Initialize MONGO server."
 
 backup_file ${MONGO_CONF}
 
+ ECHO_INFO "Restart service: ${MONGO_RC_SCRIPT_NAME}."
+    service_control restart ${MONGO_RC_SCRIPT_NAME}
 # check the mongo installed status
 mongo --eval 'db.runCommand({ connectionStatus: 1 })'
 
