@@ -184,9 +184,6 @@ esac
     export NFTABLES_CONF='/etc/nftables.conf'
     export FIREWALL_RULE_CONF="${NFTABLES_CONF}"
 
-    # Directory used to store SSL/TLS key/cert file.
-    export SSL_FILE_DIR="/var/www/sslkeys"
-
     # `python3` is a symbol link to `python3X`.
     export UWSGI_PY3_PLUGIN_NAME='python3'
 
