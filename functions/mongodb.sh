@@ -24,6 +24,9 @@ ECHO_INFO "Initialize MONGO server."
 
 backup_file ${MONGO_CONF}
 
+# check the mongo installed status
+mongo --eval 'db.runCommand({ connectionStatus: 1 })'
+
 # create the admin user     
 ECHO_INFO "Creating Mongo admin user"
 mongo  <<EOF
