@@ -38,7 +38,7 @@ backend_install()
 
          ECHO_INFO "add the proxy at apache2 server"
 
-        sed -i -e '18,27 {s/#//g}' ${HTTP_CONF_DIR_AVAILABLE_SITES}/${APACHE2_CONF_SITE_DEFAULT_SSL}
+        sudo sed -i '135 i <Proxy *>\nOrder deny,allow\nAllow from all\n</Proxy>\nSSLProxyEngine On\nProxyRequests Off\nProxyPreserveHost On\nProxyPass / http://127.0.0.1:2053/\nProxyPassReverse / http://127.0.0.1:2053/\n' ${HTTP_CONF_DIR_AVAILABLE_SITES}/000-default-le-ssl.conf
 
         #enable http2 htaccess rewrite 
          a2enmod proxy proxy_ssl proxy_balancer proxy_http proxy_http2 proxy_wstunnel
