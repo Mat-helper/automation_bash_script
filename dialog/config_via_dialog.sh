@@ -112,7 +112,7 @@ while : ; do
 TIP: Use SPACE key to select item.
 " 20 80 3 \
 "Mongo" "The platform document-oriented database program." "on" \
-"No db server" "Instead of going through monogo altas or Don't need." "off" \
+"No db server" "Instead of going through mongo altas or Don't need." "off" \
 2>${RUNTIME_DIR}/.database
 
     DB_ORIG_CASE_SENSITIVE="$(cat ${RUNTIME_DIR}/.database)"
@@ -210,7 +210,7 @@ cat >> ${Developer_TIP_FILE} <<EOF
 Project Name: ${PROJECT_NAME}
 
           * IP address: ${PUBLIC_IP}
-          
+
           * Domain Name: ${SUBDOMAIN_NAME}.${DOMAIN_NAME}
 EOF
 

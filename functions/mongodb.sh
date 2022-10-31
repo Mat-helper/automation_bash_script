@@ -26,34 +26,9 @@ backup_file ${MONGO_CONF}
 
  ECHO_INFO "Restart service: ${MONGO_RC_SCRIPT_NAME}."
     service_control restart ${MONGO_RC_SCRIPT_NAME}
-# check the mongo installed status
-mongo --eval 'db.runCommand({ connectionStatus: 1 })'
+sleep 2
 
-# create the admin user     
-ECHO_INFO "Creating Mongo admin user"
-mongo  <<EOF
-  use admin;
-  db.createUser(
-    {
-      user: "${MONGO_DB_ADMIN_USER}", 
-      pwd: "${MONGO_DB_ADMIN_PASSWD}", 
-      roles: [ { role: "userAdminAnyDatabase", db: "admin" } ]
-    }
-  )
-EOF
-
-# create the developer user with read & write
-ECHO_INFO "Creating Mongo developer user"
-mongo -u ${MONGO_DB_ADMIN_USER} -p ${MONGO_DB_ADMIN_PASSWD} --authenticationDatabase admin  <<EOF
-  use ${DATABASE_NAME};
-  db.createUser(
-    {
-        user: '${MONGO_USER}', 
-        pwd: '${MONGO_PASSWD}', 
-        roles: [{role: 'readWrite', db: '${DATABASE_NAME}' } ] 
-    }
-  )
-EOF
+. ${FUNCTIONS_DIR}/mongo_userdb.sh
 
 # config file
    ECHO_INFO "Copy sample MONGO config file: ${MONGO_CONF_SAMPLE} -> ${MONGO_CONF}."
