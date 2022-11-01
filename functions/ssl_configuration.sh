@@ -95,6 +95,8 @@ elif [ X"${ssl_configuration}" == X'LETSENCRYPT' ]; then
 
     sudo certbot --apache -d ${FLQN_NAME}
 
+    [[ -d  ${SSL_DIR} ]] || mkdir -p ${SSL_DIR}
+
     ln -s /etc/letsencrypt/live/${FLQN_NAME}/* ${SSL_DIR}
 
     chown -R ${SYSTEM_ACCOUNT_NAME}:${SYS_GROUP_WEB} ${SSL_DIR}
