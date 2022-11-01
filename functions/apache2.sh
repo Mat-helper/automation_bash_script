@@ -51,7 +51,7 @@ apache2_config()
     perl -pi -e 's#PH_DOMAIN_NAME#$ENV{FLQN_NAME}#g' ${HTTP_CONF_DIR_AVAILABLE_SITES}/${APACHE2_CONF_SITE_DEFAULT}
     perl -pi -e 's#PH_FLQN_NAME#$ENV{FLQN_NAME}#g' ${HTTP_CONF_DIR_AVAILABLE_SITES}/${APACHE2_CONF_SITE_DEFAULT}
 
-    sudo sed -i -e '11 s/ServerAlias/#ServerAlias/g' ${HTTP_CONF_DIR_AVAILABLE_SITES}/${APACHE2_CONF_SITE_DEFAULT}
+    sudo sed -i '11d' ${HTTP_CONF_DIR_AVAILABLE_SITES}/${APACHE2_CONF_SITE_DEFAULT}
     
     fi
     #enable http2 htaccess rewrite 
