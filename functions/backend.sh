@@ -9,13 +9,15 @@ backend_install()
 
     if [ X"${BACKEND}" == X'NODE' ]; then
 
-        ECHO_INFO "Installing npm"
-
-        sudo apt-get install npm -y
-
+        ECHO_INFO "Installing node using nvm"
+        sleep 1
+        su - ${SYSTEM_ACCOUNT_NAME}
+        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+        source ~/.bashrc
+        nvm install v14.19.2
         ECHO_INFO "Installing pm2."
-        
         npm install ${PROCESS_MANAGEMENT} -g
+        exit
 
         ECHO_INFO "Changing folder permission"
 

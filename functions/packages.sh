@@ -25,12 +25,12 @@ install_all()
     fi     
     
  # node
-    if [ X"${BACKEND}" == X'NODE' ]; then
-       if [ X"${DISTRO}" == X'UBUNTU' ]; then
-            curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash - 
-            ALL_PKGS="${ALL_PKGS} nodejs"
-        fi
-    fi
+   # if [ X"${BACKEND}" == X'NODE' ]; then
+   #    if [ X"${DISTRO}" == X'UBUNTU' ]; then
+  #          curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash - 
+  #          ALL_PKGS="${ALL_PKGS} nodejs"
+ #       fi
+ #   fi
 
 #mongo
  if [ X"${DB_SERVER}" == X'MONGO' ]; then
