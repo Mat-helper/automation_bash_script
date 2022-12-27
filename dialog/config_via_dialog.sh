@@ -209,9 +209,10 @@ EOF
 cat >> ${Developer_TIP_FILE} <<EOF
 Project Name: ${PROJECT_NAME}
 
-          * IP address: ${PUBLIC_IP}
+Backend server:
 
-          * Domain Name: ${SUBDOMAIN_NAME}.${DOMAIN_NAME}
+            * IP address: ${PUBLIC_IP}
+            * Domain Name: ${SUBDOMAIN_NAME}.${DOMAIN_NAME}
 EOF
 
 

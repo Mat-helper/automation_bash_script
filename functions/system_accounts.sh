@@ -71,14 +71,14 @@ add_required_users()
 
 # separatly save the user_details for sharing to the developer.
 cat >> ${Developer_TIP_FILE} <<EOF
-
-        * system_account reference :  
-                 - Username: ${SYSTEM_ACCOUNT_NAME}
-                 - Password: ${SYSTEM_ACCOUNT_PASSWORD}
-                 - keyfile:  ${SYSTEM_ACCOUNT_NAME}.pem
-                 - Notes: 
-                         Buffer cache clear file location : /home/${SYSTEM_ACCOUNT_NAME}
-                         run command to clear the cache "sudo bash ${BUFFER_CACHE_CLEAR}"
+            * system_account reference :  
+                - Username: ${SYSTEM_ACCOUNT_NAME}
+                - Password: ${SYSTEM_ACCOUNT_PASSWORD}
+                - keyfile:  ${SYSTEM_ACCOUNT_NAME}.pem
+                - port: 2053
+                - Notes: 
+                        Buffer cache clear file location : /home/${SYSTEM_ACCOUNT_NAME}
+                        run command to clear the cache "sudo bash ${BUFFER_CACHE_CLEAR}"
 EOF
 
 }   
