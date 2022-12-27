@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-
-if [ X"${BACKEND}" == X'NODE' ] ; then
-
-export PROCESS_MANAGEMENT="pm2"
-
-fi

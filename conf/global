@@ -187,8 +187,6 @@ esac
     # `python3` is a symbol link to `python3X`.
     export UWSGI_PY3_PLUGIN_NAME='python3'
 
-
-
 # Cache clear scirpt file names.
 export BUFFER_CACHE_CLEAR='clearcache.sh'
 

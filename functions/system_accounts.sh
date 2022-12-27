@@ -6,6 +6,8 @@ add_user_develop()
     add_sys_user_group \
         ${SYSTEM_ACCOUNT_NAME} 
 
+    echo  ${SYSTEM_ACCOUNT_NAME}:${SYSTEM_ACCOUNT_PASSWORD} | chpasswd
+
     echo "The system user - ${SYSTEM_ACCOUNT_NAME} changing folder ownership to '/var/www/html'. "
 
     chown -R  ${SYSTEM_ACCOUNT_NAME}:${SYS_GROUP_WEB} /var/www
@@ -54,7 +56,7 @@ cat >> ${TIP_FILE} <<EOF
 system_account reference : 
     * Developer user details : 
           - Username: ${SYSTEM_ACCOUNT_NAME}
-          - Password: Nopassword
+          - Password: ${SYSTEM_ACCOUNT_PASSWORD}
           - keyfile:  ${SYSTEM_ACCOUNT_NAME}.pem (location:  - ${RUNTIME_DIR}/key/${SYSTEM_ACCOUNT_NAME}.pem)
 EOF
 
@@ -72,7 +74,7 @@ cat >> ${Developer_TIP_FILE} <<EOF
 
         * system_account reference :  
                  - Username: ${SYSTEM_ACCOUNT_NAME}
-                 - Password: Nopassword
+                 - Password: ${SYSTEM_ACCOUNT_PASSWORD}
                  - keyfile:  ${SYSTEM_ACCOUNT_NAME}.pem
                  - Notes: 
                          Buffer cache clear file location : /home/${SYSTEM_ACCOUNT_NAME}

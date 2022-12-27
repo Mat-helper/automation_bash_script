@@ -11,14 +11,20 @@ backend_install()
 
         ECHO_INFO "Installing node using nvm"
         sleep 1
-        su - ${SYSTEM_ACCOUNT_NAME}
+        touch /home/${SYSTEM_ACCOUNT_NAME}/nvm_script.sh
+    cat >> /home/${SYSTEM_ACCOUNT_NAME}/nvm_script.sh <<EOF
+        
         curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
         source ~/.bashrc
         nvm install v14.19.2
         ECHO_INFO "Installing pm2."
-        npm install ${PROCESS_MANAGEMENT} -g
+        npm install pm2 -g
         exit
-
+EOF
+su - ${SYSTEM_ACCOUNT_NAME}
+sleep 1
+bash nvm_script.sh
+sleep 2
         ECHO_INFO "Changing folder permission"
 
         chown -R ${SYSTEM_ACCOUNT_NAME}:${SYS_GROUP_WEB} /var/www

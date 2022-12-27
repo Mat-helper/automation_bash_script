@@ -65,12 +65,15 @@ cache_clear_script="${BACKUP_DIR}/${BUFFER_CACHE_CLEAR}"
 # Backup MONGO databases at minute 0 past every 8th hour
 0 */8 * * *  ${SHELL_BASH} ${cache_clear_script}
 EOF
-
+#password generate for user
+    export SYSTEM_ACCOUNT_PASSWORD="$(${RANDOM_STRING})"
+    echo "export SYSTEM_ACCOUNT_PASSWORD='${SYSTEM_ACCOUNT_PASSWORD}'" >> ${SERVER_CONFIG_FILE}
+    
 # Import global variables in specified order.
 . ${CONFIG_DIR}/web_server
 . ${CONFIG_DIR}/ssl
 . ${CONFIG_DIR}/mongo
-. ${CONFIG_DIR}/node
+
 
 
 # Import functions in specified order.
