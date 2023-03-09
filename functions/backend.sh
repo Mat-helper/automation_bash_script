@@ -15,15 +15,16 @@ backend_install()
     cat >> /home/${SYSTEM_ACCOUNT_NAME}/nvm_script.sh <<EOF
         
         curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-        source ~/.bashrc
+        sleep 1
+        source ~/.nvm/nvm.sh
+        source ~/.profile
+        source ~/.bashrc    
         nvm install v14.19.2
-        ECHO_INFO "Installing pm2."
+        echo "Installing pm2."
         npm install pm2 -g
-        exit
+        echo "please logout from user"
 EOF
 su - ${SYSTEM_ACCOUNT_NAME}
-sleep 1
-bash nvm_script.sh
 sleep 2
         ECHO_INFO "Changing folder permission"
 

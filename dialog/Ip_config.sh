@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-
 # First domain name.
 while : ; do
     ${DIALOG} \

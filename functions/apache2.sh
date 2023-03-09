@@ -72,9 +72,6 @@ Apache2:
     * Directories:
         - ${HTTP_CONF_ROOT}
         - ${HTTP_DOCUMENTROOT}
-    * See also:
-        - ${HTTP_DOCUMENTROOT}/index.html
-
 EOF
 
     echo 'export status_apache2_config="DONE"' >> ${STATUS_FILE}

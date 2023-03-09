@@ -40,5 +40,5 @@ else
 fi
 
 cat >> ${TIP_FILE} <<EOF
-            * ssl_status :           ${ssl_configuration_case_sensitive}
+            * ssl_status : ${ssl_configuration_case_sensitive}
 EOF

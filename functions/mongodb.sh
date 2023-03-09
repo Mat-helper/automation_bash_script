@@ -68,15 +68,15 @@ Mongo DB reference :
           - Password: ${MONGO_PASSWD}
           - PORT:     ${MONGO_PORT}
           - DB_NAME:  ${DATABASE_NAME}
-          - IP        ${PUBLIC_IP}
+          - IP        127.0.0.1
 
      share the above details to the developers for login the mongo database.
 
     # commands : 
-      mongo -u ${MONGO_USER} -p ${MONGO_PASSWD} ${PUBLIC_IP}:$MONGO_PORT/${DATABASE_NAME}
-      mongoURI: "mongodb://${MONGO_USER}:${MONGO_PASSWD}@${PUBLIC_IP}:$MONGO_PORT/${DATABASE_NAME}"   --- share this mongo uri to developers
-      mongodump --host ${PUBLIC_IP} -d ${DATABASE_NAME} --port $MONGO_PORT 
-      mongorestore --host ${PUBLIC_IP} -d ${DATABASE_NAME} --port $MONGO_PORT 
+      mongo -u ${MONGO_USER} -p ${MONGO_PASSWD} 127.0.0.1:$MONGO_PORT/${DATABASE_NAME}
+      mongoURI: "mongodb://${MONGO_USER}:${MONGO_PASSWD}@127.0.0.1:$MONGO_PORT/${DATABASE_NAME}"   --- share this mongo uri to developers
+      mongodump --host 127.0.0.1 -d ${DATABASE_NAME} --port $MONGO_PORT 
+      mongorestore --host 127.0.0.1 -d ${DATABASE_NAME} --port $MONGO_PORT 
 EOF
 
 # separatly save the db_details for sharing to the developer.
@@ -86,10 +86,10 @@ cat >> ${Developer_TIP_FILE} <<EOF
                 - Password: ${MONGO_PASSWD}
                 - PORT:     ${MONGO_PORT}
                 - DB_NAME:  ${DATABASE_NAME}
-                - IP :      ${PUBLIC_IP}
+                - IP :      127.0.0.1
                     # commands : 
-                        mongo -u ${MONGO_USER} -p ${MONGO_PASSWD} ${PUBLIC_IP}:$MONGO_PORT/${DATABASE_NAME}
-                        mongoURI: "mongodb://${MONGO_USER}:${MONGO_PASSWD}@${PUBLIC_IP}:$MONGO_PORT/${DATABASE_NAME}" 
+                        mongo -u ${MONGO_USER} -p ${MONGO_PASSWD} 127.0.0.1:$MONGO_PORT/${DATABASE_NAME}
+                        mongoURI: "mongodb://${MONGO_USER}:${MONGO_PASSWD}@127.0.0.1:$MONGO_PORT/${DATABASE_NAME}" 
 EOF
 
 echo 'export status_mongo_initialize_db="DONE"' >> ${STATUS_FILE}
@@ -130,6 +130,3 @@ Backup MONGO database:
 EOF
     echo 'export status_mongo_cron_backup="DONE"' >> ${STATUS_FILE}
 }
-
-
-

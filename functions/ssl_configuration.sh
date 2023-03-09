@@ -86,7 +86,14 @@ SSL keys were Located:
     - ${SSL_FULLCHAIN_FILE}
 EOF
 
-        echo 'export status_ssl_cert_file="DONE"'  >> ${STATUS_FILE}
+ cat >> ${Developer_TIP_FILE} <<EOF
+SSL keys were Located:
+            - ${SSL_CERT_FILE}
+            - ${SSL_KEY_FILE}
+            - ${SSL_FULLCHAIN_FILE}
+EOF
+
+    echo 'export status_ssl_cert_file="DONE"'  >> ${STATUS_FILE}
 
 
 elif [ X"${ssl_configuration}" == X'LETSENCRYPT' ]; then
@@ -111,4 +118,3 @@ EOF
 fi
 
 }
-

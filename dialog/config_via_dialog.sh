@@ -194,14 +194,14 @@ cat <<EOF
 ********************************** Review your settings ************************************
 ********************************************************************************************
 
-* Project Name :                        ${PROJECT_NAME}
-* Database Server :                     ${DB_ORIG_CASE_SENSITIVE}
-* Backend server:                       ${BACKEND_ORIG_CASE_SENSITIVE}
-* Web server :                          ${web_server_case_sensitive}
-* ssl_status :                          ${ssl_configuration_case_sensitive}
-* Domain Name :                         ${SUBDOMAIN_NAME}.${DOMAIN_NAME}
-* IP address :                          ${PUBLIC_IP}
-* System_username :                     ${SYSTEM_ACCOUNT_NAME}
+* Project Name :               ${PROJECT_NAME}
+* Database Server :            ${DB_ORIG_CASE_SENSITIVE}
+* Backend server:              ${BACKEND_ORIG_CASE_SENSITIVE}
+* Web server :                 ${web_server_case_sensitive}
+* ssl_status :                 ${ssl_configuration_case_sensitive}
+* Domain Name :                ${SUBDOMAIN_NAME}.${DOMAIN_NAME}
+* IP address :                 ${PUBLIC_IP}
+* System_username :            ${SYSTEM_ACCOUNT_NAME}
 
 EOF
 
@@ -211,7 +211,7 @@ Project Name: ${PROJECT_NAME}
 
 Backend server:
 
-            * IP address: ${PUBLIC_IP}
+            * IP address:  ${PUBLIC_IP}
             * Domain Name: ${SUBDOMAIN_NAME}.${DOMAIN_NAME}
 EOF
 

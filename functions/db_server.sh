@@ -27,7 +27,8 @@ db_server_config()
     export DATABASE_NAME="$(${RANDOM_STRING})"
     echo "export DATABASE_NAME='${DATABASE_NAME}'" >> ${SERVER_CONFIG_FILE}
 
-    export MONGO_PORT="$(${RANDOM_NUMBER})"
+#    export MONGO_PORT="$(${RANDOM_NUMBER})"
+    export MONGO_PORT="27017"
     echo "export MONGO_PORT='${MONGO_PORT}'" >> ${SERVER_CONFIG_FILE}
 
      . ${FUNCTIONS_DIR}/mongodb.sh
