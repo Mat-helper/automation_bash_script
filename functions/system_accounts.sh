@@ -18,6 +18,8 @@ add_user_develop()
 
     ln -s ${cache_clear_script} /home/${SYSTEM_ACCOUNT_NAME}
     
+    chown -R  ${SYSTEM_ACCOUNT_NAME}:${SYSTEM_ACCOUNT_NAME} /home/${SYSTEM_ACCOUNT_NAME}/${cache_clear_script}
+    
     echo "Link the buffer cache clear script to the ${SYSTEM_ACCOUNT_NAME} home location"
 
 echo 'export status_add_user_develop="DONE"' >> ${STATUS_FILE}
