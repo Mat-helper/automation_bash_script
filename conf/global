@@ -135,7 +135,7 @@ export SYS_GROUP_WEB='www-data'
 # Use systemd
 export USE_SYSTEMD='YES'
 
-export PRIVILEGES='/bin/zip,/bin/unzip,/bin/pm2,/bin/nano,/bin/kill,/bin/mkdir,/usr/bin/lsof,/usr/bin/npm,/usr/bin/node,/bin/systemctl,/usr/bin/vim,/usr/bin/vi,/bin/tar'
+export PRIVILEGES='/bin/zip,/bin/unzip,/bin/pm2,/bin/nano,/bin/kill,/bin/mkdir,/usr/bin/lsof,/usr/bin/npm,/usr/bin/node,/bin/systemctl,/usr/bin/vim,/usr/bin/vi,/bin/tar,/bin/bash clearcache.sh'
 
 # Check processor type.
 if [ X"${DISTRO}" == X'UBUNTU' ]; then

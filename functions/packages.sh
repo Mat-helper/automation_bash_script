@@ -67,7 +67,7 @@ fi
        
     }
  cat >> ${TIP_FILE} <<EOF
-                * Enabled services: ${ENABLED_SERVICES}
+            * Enabled services: ${ENABLED_SERVICES}
 EOF
 
     # Do not run them with 'check_status_before_run', so that we can always
