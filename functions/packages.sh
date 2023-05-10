@@ -35,8 +35,8 @@ install_all()
 #mongo
  if [ X"${DB_SERVER}" == X'MONGO' ]; then
        if [ X"${DISTRO}" == X'UBUNTU' ]; then
-            wget -qO - https://www.mongodb.org/static/pgp/server-4.0.asc | sudo apt-key add - 
-            echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.0.list 
+            wget -qO - https://www.mongodb.org/static/pgp/server-5.0.asc | sudo apt-key add - 
+            echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/5.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-5.0.list 
             ALL_PKGS="${ALL_PKGS} mongodb-org"
           
         fi
