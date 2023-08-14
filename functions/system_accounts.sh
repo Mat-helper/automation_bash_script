@@ -77,7 +77,9 @@ cat >> ${Developer_TIP_FILE} <<EOF
                 - Username: ${SYSTEM_ACCOUNT_NAME}
                 - Password: ${SYSTEM_ACCOUNT_PASSWORD}
                 - keyfile:  ${SYSTEM_ACCOUNT_NAME}.pem
-                - port: 2053
+                - Backend-port: 2053
+                	# commands: 
+                		ssh -i ${SYSTEM_ACCOUNT_NAME}.pem ${SYSTEM_ACCOUNT_NAME}@${PUBLIC_IP}
                 - Notes: 
                         Buffer cache clear file location : /home/${SYSTEM_ACCOUNT_NAME}
                         run command to clear the cache "sudo bash ${BUFFER_CACHE_CLEAR}"

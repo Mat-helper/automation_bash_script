@@ -19,7 +19,7 @@ backend_install()
         source ~/.nvm/nvm.sh
         source ~/.profile
         source ~/.bashrc    
-        nvm install v14.19.2
+        nvm install v14
         echo "Installing pm2."
         npm install pm2 -g
         echo "please logout from user"
@@ -36,7 +36,7 @@ sleep 2
 
         ECHO_INFO "add the proxy at apache2 server"
 
-        sed -i -e '18,27 {s/#//g}' ${HTTP_CONF_DIR_AVAILABLE_SITES}/${APACHE2_CONF_SITE_DEFAULT_SSL}
+        sed -i -e '17,27 {s/#//g}' ${HTTP_CONF_DIR_AVAILABLE_SITES}/${APACHE2_CONF_SITE_DEFAULT_SSL}
 
         #enable http2 htaccess rewrite 
          a2enmod proxy proxy_balancer proxy_http proxy_http2 proxy_wstunnel

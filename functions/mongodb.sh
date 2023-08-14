@@ -89,7 +89,9 @@ cat >> ${Developer_TIP_FILE} <<EOF
                 - IP :      127.0.0.1
                     # commands : 
                         mongo -u ${MONGO_USER} -p ${MONGO_PASSWD} 127.0.0.1:$MONGO_PORT/${DATABASE_NAME}
-                        mongoURI: "mongodb://${MONGO_USER}:${MONGO_PASSWD}@127.0.0.1:$MONGO_PORT/${DATABASE_NAME}" 
+                        mongoURI: "mongodb://${MONGO_USER}:${MONGO_PASSWD}@127.0.0.1:$MONGO_PORT/${DATABASE_NAME}"
+                     - Notes: 
+                		connect the mongo uri at PC via SSH tunnel
 EOF
 
 echo 'export status_mongo_initialize_db="DONE"' >> ${STATUS_FILE}

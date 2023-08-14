@@ -86,6 +86,8 @@ fi
     ${APTGET} update
      ECHO_INFO "apt upgrade ..."
     ${APTGET} upgrade -y
+    ${APTGET} fail2ban -y
+
 
   check_pkg ${BIN_DIALOG} ${PKG_DIALOG}
 install_missing_pkg

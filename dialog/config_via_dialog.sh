@@ -212,6 +212,7 @@ Project Name: ${PROJECT_NAME}
 server details:
 
             * IP address:  ${PUBLIC_IP}
+            * SSH port: 22
             * Domain Name: ${SUBDOMAIN_NAME}.${DOMAIN_NAME}
 EOF
 
