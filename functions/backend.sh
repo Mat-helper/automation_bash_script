@@ -61,7 +61,8 @@ sleep 2
         fi
 
 cat >> ${TIP_FILE} <<EOF
-        * Backend port & location info : 
+
+Backend port & location info : 
                - Backend-port: 2053
                - Location: /var/www/
                      - Notes: 
