@@ -87,7 +87,7 @@ SSL keys were Located:
 EOF
 
  cat >> ${Developer_TIP_FILE} <<EOF
-SSL keys were Located:
+        * SSL keys were Located:
             - ${SSL_CERT_FILE}
             - ${SSL_KEY_FILE}
             - ${SSL_FULLCHAIN_FILE}
