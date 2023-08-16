@@ -60,6 +60,8 @@ export BIN_UNZIP='unzip'
 export PKG_UNZIP='unzip'
 export BIN_CURL='curl'
 export PKG_CURL='curl'
+export BIN_FAIL2BAN='fail2ban-server'
+export PKG_FAIL2BAN='fail2ban'
 
 # Shells
 export SHELL_NOLOGIN='/sbin/nologin'
