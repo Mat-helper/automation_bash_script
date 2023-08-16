@@ -60,6 +60,23 @@ sleep 2
 
         fi
 
+cat >> ${TIP_FILE} <<EOF
+        * Backend port & location info : 
+               - Backend-port: 2053
+               - Location: /var/www/
+                     - Notes: 
+                		create a folder name "backend" [ mkdir backup ] 
+EOF
+
+cat >> ${Developer_TIP_FILE} <<EOF
+            * Backend port & location info : 
+               - Backend-port: 2053
+               - Location: /var/www/
+                     - Notes: 
+                		create a folder name "backend" [ mkdir backup ] 
+EOF
+
+
         echo 'export status_backend_setup="DONE"' >> ${STATUS_FILE}
 
     fi

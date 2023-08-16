@@ -45,11 +45,11 @@ add_pem_file()
 
     chmod 600  /home/${SYSTEM_ACCOUNT_NAME}/.ssh/authorized_keys
 
-    cp ${RUNTIME_DIR}/.ssh/${SYSTEM_ACCOUNT_NAME}.pub /home/${SYSTEM_ACCOUNT_NAME}/.ssh/authorized_keys
+    cat ${RUNTIME_DIR}/.ssh/${SYSTEM_ACCOUNT_NAME}.pub >> /home/${SYSTEM_ACCOUNT_NAME}/.ssh/authorized_keys
 
     [[ -d ${RUNTIME_DIR}/key ]] || mkdir -p ${RUNTIME_DIR}/key
     
-    cp ${RUNTIME_DIR}/.ssh/${SYSTEM_ACCOUNT_NAME} ${RUNTIME_DIR}/key/${SYSTEM_ACCOUNT_NAME}.pem
+    cat ${RUNTIME_DIR}/.ssh/${SYSTEM_ACCOUNT_NAME} >> ${RUNTIME_DIR}/key/${SYSTEM_ACCOUNT_NAME}.pem
 
     echo 'export status_add_pem_file_user_develop="DONE"' >> ${STATUS_FILE}
 
@@ -77,7 +77,6 @@ cat >> ${Developer_TIP_FILE} <<EOF
                 - Username: ${SYSTEM_ACCOUNT_NAME}
                 - Password: ${SYSTEM_ACCOUNT_PASSWORD}
                 - keyfile:  ${SYSTEM_ACCOUNT_NAME}.pem
-                - Backend-port: 2053
                 	# commands: 
                 		ssh -i ${SYSTEM_ACCOUNT_NAME}.pem ${SYSTEM_ACCOUNT_NAME}@${PUBLIC_IP}
                 - Notes: 
