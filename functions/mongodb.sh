@@ -116,7 +116,7 @@ mongo_backup_script="${BACKUP_DIR}/${BACKUP_SCRIPT_MONGO_NAME}"
 0   */2   *   *   *  ${SHELL_BASH} ${mongo_backup_script}
 EOF
 # Run the bash script to check the functions
-${SHELL_BASH} ${mongo_backup_script}
+# ${SHELL_BASH} ${mongo_backup_script}
 # port , username, password, db of mongo.
     perl -pi -e 's#PH_MONGO_PORT#$ENV{MONGO_PORT}#g' ${mongo_backup_script}
     perl -pi -e 's#PH_MONGO_USER#$ENV{MONGO_USER}#g' ${mongo_backup_script}
