@@ -22,11 +22,10 @@ backend_install()
         nvm install v14
         echo "Installing pm2."
         npm install pm2 -g
-        echo "please logout from user"
 EOF
         chown ${SYSTEM_ACCOUNT_NAME}:${SYSTEM_ACCOUNT_NAME} /home/${SYSTEM_ACCOUNT_NAME}/nvm_script.sh
         
-        su - ${SYSTEM_ACCOUNT_NAME}
+        runuser -l ${SYSTEM_ACCOUNT_NAME} /home/${SYSTEM_ACCOUNT_NAME}/nvm_script.sh
 sleep 2
         ECHO_INFO "Changing folder permission"
 
