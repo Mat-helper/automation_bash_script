@@ -67,7 +67,7 @@ Backend port & location info :
                - Backend-port: 2053
                - Location: /var/www/
                      - Notes: 
-                		create a folder name "backend" [ mkdir backup ] 
+                		create a folder name "backend" [ # mkdir backend ] 
 EOF
 
 cat >> ${Developer_TIP_FILE} <<EOF
@@ -75,7 +75,7 @@ cat >> ${Developer_TIP_FILE} <<EOF
                - Backend-port: 2053
                - Location: /var/www/
                      - Notes: 
-                		create a folder name "backend" [ mkdir backup ] 
+                		create a folder name "backend" [ # mkdir backend ] 
 EOF
 
 

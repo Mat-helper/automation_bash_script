@@ -13,7 +13,7 @@ apache2_config()
     [ ! -d ${HTTP_CONF_DIR_ENABLED_SITES} ] && mkdir -p ${HTTP_CONF_DIR_ENABLED_SITES}
 
     #backup the apache2, default conf file
-    backup_file ${APACHE2_CONF} ${HTTP_CONF_DIR_AVAILABLE_SITES}/${APACHE2_CONF_SITE_DEFAULT}
+    backup_file ${APACHE2_CONF} 
     #
     # Modular config files
     #
@@ -61,7 +61,7 @@ apache2_config()
     cd ${HTTP_CONF_DIR_AVAILABLE_SITES}
     ${SITE_ENABLE} ${APACHE2_CONF_SITE_DEFAULT} >> ${INSTALL_LOG} 2>&1
     cd ${ROOTDIR}
-    # starting apache2
+    # Restarting apache2
     ECHO_DEBUG "Restart service: ${APACHE2_RC_SCRIPT_NAME}."
     service_control restart ${APACHE2_RC_SCRIPT_NAME}
 
