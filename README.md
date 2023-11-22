@@ -8,11 +8,14 @@ Backend_server: Node
 and included other features like user creation, sudo privileges for user , clear a cache on server by using cron job, backup script for mongodb by cron.
 
 
-Make sure to run the bash script on newly installed os. Use below command to run the bash script.
+# Make sure to run the bash script on newly installed os. Use below command to run the bash script.
 
       # cd automation_bash_script
       # bash server_config.sh
 
+After script was completed you can find file "To_developers.tips" which has a details (i.e., username, password , domain name and so on)
+
+Don't forgot to enable the firewall (i.e., ufw )
 
 # date 25-07-2022
   1. installation command & apache2 web server configuration - http2, rewrite, header, proxy, ssl, virtualhost
