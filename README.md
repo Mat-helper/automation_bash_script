@@ -2,7 +2,7 @@
 This is the Bash script used to create the environment to run the node projects 
 
 Web_server: apache2
-DB_server: mongo 
+DB_server: mongo
 Backend_server: Node
 
 and included other features like user creation, sudo privileges for user , clear a cache on server by using cron job, backup script for mongodb by cron.
