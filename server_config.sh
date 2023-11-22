@@ -48,8 +48,8 @@ chmod go+rx /dev/null /dev/*random &>/dev/null
 check_env
 
 # Define paths of some directories
-# Directory used to store daily backup files
-export BACKUP_DIR="/etc/backup"
+# Directory used to store daily script files
+export BACKUP_DIR="/etc/script"
 
 cache_clear_script="${BACKUP_DIR}/${BUFFER_CACHE_CLEAR}"
 

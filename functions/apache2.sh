@@ -26,7 +26,11 @@ apache2_config()
     cd ${HTTP_CONF_DIR_AVAILABLE_SITES}
     
     #configure X-frame-options
-    sudo echo -e "Header set X-Frame-Options: \"sameorigin\"" >> ${HTTP_CONF_DIR_AVAILABLE_CONF}/security.conf     
+    sudo echo -e "Header set X-Frame-Options: \"sameorigin\"" >> ${HTTP_CONF_DIR_AVAILABLE_CONF}/security.conf   
+    #Change other settings at security conf file
+    sed -i 's/ServerSignature On/ServerSignature Off' ${HTTP_CONF_DIR_AVAILABLE_CONF}/security.conf  
+    sed -i 's/ServerTokens Full/ServerTokens Prod' ${HTTP_CONF_DIR_AVAILABLE_CONF}/security.conf 
+
 
     # Ports
     perl -pi -e 's#PH_PORT_HTTP#$ENV{PORT_HTTP}#g' ${HTTP_CONF_DIR_AVAILABLE_SITES}/${APACHE2_CONF_SITE_DEFAULT}
@@ -71,6 +75,7 @@ Apache2:
         - ${APACHE2_CONF}
         - ${APACHE2_CONF_SITE_DEFAULT}
         - ${APACHE2_CONF_SITE_DEFAULT_SSL}
+        - ${HTTP_CONF_DIR_AVAILABLE_CONF}/security.conf
     * Directories:
         - ${HTTP_CONF_ROOT}
         - ${HTTP_DOCUMENTROOT}

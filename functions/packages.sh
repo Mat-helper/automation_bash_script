@@ -76,7 +76,7 @@ EOF
     ECHO_INFO "apt update ..."
     ${APTGET} update
     install_all_pkgs
-
+    sudo dpkg-reconfigure -plow unattended-upgrades
    # check_status_before_run after_package_installation
 
     echo 'export status_install_all="DONE"' >> ${STATUS_FILE}

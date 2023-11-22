@@ -25,8 +25,6 @@ export PKG_WGET='wget'
 export BIN_PERL='perl'
 export PKG_PERL='perl'
 
-
-
 export PKG_APT_TRANSPORT_HTTPS="apt-transport-https"
 
 prepare_dirs()
@@ -67,8 +65,10 @@ if [ X"${DISTRO}" == X'UBUNTU' ]; then
     check_pkg ${BIN_WGET} ${PKG_WGET}
     check_pkg ${BIN_CURL} ${PKGcw_CURL}
     check_pkg ${BIN_ZIP} ${PKG_ZIP}
+    check_pkg ${BIN_NETSTAT} ${PKG_NETSTAT}
     check_pkg ${BIN_UNZIP} ${PKG_UNZIP}
     check_pkg ${BIN_FAIL2BAN} ${PKG_FAIL2BAN}
+    check_pkg ${BIN_DIALOG} ${PKG_DIALOG}
 
     [[ -e /usr/sbin/update-ca-certificates ]] || export MISSING_PKGS="${MISSING_PKGS} ca-certificates"
     [[ -e /usr/lib/apt/methods/https ]] || export MISSING_PKGS="${MISSING_PKGS} ${PKG_APT_TRANSPORT_HTTPS}"
@@ -89,7 +89,7 @@ fi
     ${APTGET} upgrade -y
 
 
-  check_pkg ${BIN_DIALOG} ${PKG_DIALOG}
+  
 install_missing_pkg
 
 echo_end_msg && \

@@ -53,7 +53,7 @@ export RANDOM_NUMBER='shuf -i 49152-65535 -n 1'
 export BIN_DIALOG="dialog"
 export PKG_DIALOG="dialog"
 
-# command: zip , unzip, curl.
+# command: zip , unzip, curl, fail2ban, netstat.
 export BIN_ZIP='zip'
 export PKG_ZIP='zip'
 export BIN_UNZIP='unzip'
@@ -62,6 +62,8 @@ export BIN_CURL='curl'
 export PKG_CURL='curl'
 export BIN_FAIL2BAN='fail2ban-server'
 export PKG_FAIL2BAN='fail2ban'
+export BIN_NETSTAT='netstat'
+export PKG_NETSTAT='net-tools'
 
 # Shells
 export SHELL_NOLOGIN='/sbin/nologin'
