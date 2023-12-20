@@ -37,7 +37,7 @@ sleep 2
 
         ECHO_INFO "add the proxy at apache2 server"
 
-        sed -i -e '21,32 {s/#//g}' ${HTTP_CONF_DIR_AVAILABLE_SITES}/${APACHE2_CONF_SITE_DEFAULT_SSL}
+        sed -i -e '21,31 {s/#//g}' ${HTTP_CONF_DIR_AVAILABLE_SITES}/${APACHE2_CONF_SITE_DEFAULT_SSL}
 
         #enable http2 htaccess rewrite 
          a2enmod proxy proxy_balancer proxy_http proxy_http2 proxy_wstunnel
